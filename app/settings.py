@@ -47,6 +47,16 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "tailwind",
+    
+    # Apps
+    'airplanes_management',
+    'flights_management',
+    'user',
+    'home',
+    'passengers_management',
+    'reports',
+    'reservations'
 ]
 
 MIDDLEWARE = [

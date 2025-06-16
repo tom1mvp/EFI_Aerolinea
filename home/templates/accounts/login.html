@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block title %} 
+    Inicio de Sesion
+{% endblock %}
+
+{% block content %}
+    <div>
+        <div>
+            <div>
+                <h2> Inicio de Sesion </h2>
+                <form method="post">
+                    {% csrf_token %}
+                     <div class="form-group">
+                        <label for="username"> Nombre de Usuario </label>
+                        <input 
+                            type="text" 
+                            name="username" 
+                            id="username" 
+                            class="form-control" 
+                            placeholder="Escriba su nombre de usuario" 
+                            required
+                            > 
+                     </div>
+                     <div>
+                        <label for="password1"> Contraseña </label>
+                        <input 
+                        type="password"
+                        name="password" 
+                        id="password" 
+                        class="form-control" 
+                        placeholder="Escriba su contraseña" 
+                        required
+                        >
+                     </div>
+                      <button type="submit"> Iniciar Sesion </button>
+                </form>
+                <p> ¿No tenes cuenta? <a href="{% url 'register' %}"> Registrate aca </a> </p>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
