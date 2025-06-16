@@ -56,7 +56,7 @@ Se han desarrollado vistas clave como:
 
 Todos los templates están construidos utilizando **[django-tailwind](https://django-tailwind.readthedocs.io/)**, un framework que permite integrar de forma eficiente las utilidades y estilos de **Tailwind CSS** dentro del entorno de Django. Esto nos permite desarrollar interfaces modernas, responsivas y altamente personalizables, manteniendo la coherencia visual en toda la aplicación.
 
-### 🧩 Estructura y navegación
+## 🧩 Estructura y navegación
 
 La interfaz del formulario de inicio de sesión incluye un **navbar** funcional, el cual contiene:
 
@@ -64,7 +64,7 @@ La interfaz del formulario de inicio de sesión incluye un **navbar** funcional,
 - Un botón de **cerrar sesión** (visible para usuarios autenticados).
 - En futuras versiones, este menú se expandirá con enlaces a funciones internas del sistema.
 
-### 🔐 Seguridad y flujo de usuarios
+## 🔐 Seguridad y flujo de usuarios
 
 En futuras versiones se implementará una restricción de acceso:  
 > Los usuarios podrán navegar por ciertas secciones de la aplicación, pero **no podrán comprar boletos de avión sin estar autenticados**.
