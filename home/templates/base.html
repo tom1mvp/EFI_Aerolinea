@@ -1,43 +1,34 @@
-<!doctype html>
+{% load static tailwind_tags %}
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <title>{% block title %}{% endblock %}</title>
     <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    {% tailwind_css %}
   </head>
   <body>
-       <nav class="w-32 z-10 bg-gray-800 text-white p-4 flex flex-col justify-start navbar-shadow">
-            <a href="{% url 'index' %}">
-                Inicio
-            </a>
-            {% if user.is_authenticated %}
-                <ul class="space-y-4 mt-28">
-                    <li>
-                         <a href="{% url 'vuelos' %}">
-                            Vuelos
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'asientos' %}">
-                            Asientos
-                        </a>
-                    </li>
-                </ul>
-                <a class="end-0 mt-auto flex justify-between items-center" href="{% url 'logout' %}" > Salir </a>
-                {% else %}
-                     <li>
-                         <a href="{% url 'login' %}">
-                            Iniciar sesion
-                        </a>
-                    </li>
-                    <li>
-                        <a href="{% url 'register' %}">
-                            Registrarse
-                        </a>
-                    </li>
-                {% endif %}
-       </nav>
+    <nav class="w-32 z-10 bg-gray-800 text-white p-4 flex flex-col justify-start navbar-shadow">
+      <a href="{% url 'index' %}"> Inicio </a>
+      {% if user.is_authenticated %}
+      <ul class="space-y-4 mt-28">
+        <li>
+          <a href="{% url 'vuelos' %}"> Vuelos </a>
+        </li>
+        <li>
+          <a href="{% url 'asientos' %}"> Asientos </a>
+        </li>
+      </ul>
+      <a class="end-0 mt-auto flex justify-between items-center" href="{% url 'logout' %}"> Salir </a>
+      {% else %}
+      <li>
+        <a href="{% url 'login' %}"> Iniciar sesion </a>
+      </li>
+      <li>
+        <a href="{% url 'register' %}"> Registrarse </a>
+      </li>
+      {% endif %}
+    </nav>
   </body>
 </html>
