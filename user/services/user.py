@@ -19,8 +19,7 @@ class UserServices:
         if not user:
             raise ValueError("El usuario ingresado no existe")
         
-        UserServices.encrip_password(password)
-        
+        # Remove the re-hashing of the password
         if not check_password(password, user.password):
             raise ValueError("La contraseña es incorrecta")
         
@@ -75,4 +74,3 @@ class UserServices:
         if user:
             return UserRepository.delete_user(user_id=user_id)
         return False
-    

@@ -1,8 +1,6 @@
 from django.shortcuts import redirect, render
 from django.contrib import messages
-from django.contrib.auth import authenticate, logout
-
-
+from django.contrib.auth import authenticate, logout, login  # Import the login function
 
 from user.services.user import UserServices
 
@@ -22,15 +20,11 @@ def login_view(request):
             password=password
         )
         if user is not None:
-            try:
-                UserServices.login(
-                    username=username,
-                    password=password
-                )
-                messages.success(request, "Sesion iniciada")
-                return redirect("index")
-            except:
-                messages.error(request, "Faltan datos")
+            login(request, user)  # Log in the user
+            messages.success(request, "Sesión iniciada correctamente")
+            return redirect("index")
+        else:
+            messages.error(request, "Nombre de usuario o contraseña incorrectos")
     return render(request, 'accounts/login.html')
                 
 def logout_view(request):
@@ -53,7 +47,8 @@ def register_view(request):
                 password=password,
                 email=email
             )
-            return render(request, template_name='accounts/register.html')
+            messages.success(request, "Registro exitoso")
+            return redirect('login')
         except Exception as e:
-            messages.error(request, "Faltan datos")
+            messages.error(request, "Error en el registro: " + str(e))
     return render(request, 'accounts/register.html')

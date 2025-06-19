@@ -1,65 +1,66 @@
-{% extends 'base.html' %}
-
-{% block title %} Registro {% endblock %}
-
-{% block content %}
-    <div>
-        <div>
-            <div>
-                <form method="post">
-                    <div>
-                        <label for="first_name"> Nombre </label>
-                        <input
-                        type="text"
-                        name="first_name"
-                        id="first_name"
-                        placeholder="Escriba su nombre"
-                        required
-                        >
-                    </div>
-                    <div>
-                        <label for="last_name"> Apellido </label>
-                        <input
-                        type="text"
-                        name="last_name"
-                        id="last_name"
-                        placeholder="Escriba su nombre"
-                        required
-                        >
-                    </div>
-                    <div>
-                        <label for="username"> Nombre de Usuario </label>
-                        <input 
-                        type="text" 
-                        name="username" 
-                        id="username" 
-                        placeholder="Escriba su nombre de usuario" 
-                        required
-                        >
-                    </div>
-                    <div>
-                        <label for="password"> Contraseña </label>
-                        <input 
-                        type="password" 
-                        name="password" 
-                        id="pasword" 
-                        placeholder="Escriba su contraseña"
-                        required
-                        >
-                    </div>
-                    <div>
-                        <label for="email"> Email </label>
-                        <input 
-                        type="email"
-                        name="email" 
-                        id="email" 
-                        placeholder="Email" 
-                        required
-                        >  
-                    </div>
-                    <button type="submit"> Registrarme </button>
-                </form>
-            </div>
-        </div>
+{% extends 'base.html' %} {% block title %} Registro {% endblock %} {% block content %}
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-orange-500 mb-4">Registro</h2>
+  <form method="post">
+    {% csrf_token %}
+    <div class="mb-4">
+      <label for="first_name" class="block text-sm font-medium text-gray-700">Nombre</label>
+      <input
+        type="text"
+        name="first_name"
+        id="first_name"
+        class="w-full border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
+        placeholder="Escriba su nombre"
+        required
+      />
     </div>
+    <div class="mb-4">
+      <label for="last_name" class="block text-sm font-medium text-gray-700">Apellido</label>
+      <input
+        type="text"
+        name="last_name"
+        id="last_name"
+        class="w-full border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
+        placeholder="Escriba su apellido"
+        required
+      />
+    </div>
+    <div class="mb-4">
+      <label for="username" class="block text-sm font-medium text-gray-700">Nombre de Usuario</label>
+      <input
+        type="text"
+        name="username"
+        id="username"
+        class="w-full border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
+        placeholder="Escriba su nombre de usuario"
+        required
+      />
+    </div>
+    <div class="mb-4">
+      <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
+      <input
+        type="password"
+        name="password"
+        id="password"
+        class="w-full border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
+        placeholder="Escriba su contraseña"
+        required
+      />
+    </div>
+    <div class="mb-4">
+      <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+      <input
+        type="email"
+        name="email"
+        id="email"
+        class="w-full border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
+        placeholder="Email"
+        required
+      />
+    </div>
+    <button type="submit" class="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600"
+      >Registrarme</button
+    >
+  </form>
+</div>
 {% endblock %}
