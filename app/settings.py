@@ -37,6 +37,7 @@ DEBUG = env.bool("DEBUG", default=False)
 
 ALLOWED_HOSTS = []
 
+TAILWIND_APP_NAME = 'theme'
 
 # Application definition
 
@@ -47,6 +48,17 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    "tailwind",
+    "theme",
+    
+    # Apps
+    'airplanes_management',
+    'flights_management',
+    'user',
+    'home',
+    'passengers_management',
+    'reports',
+    'reservations'
 ]
 
 MIDDLEWARE = [
