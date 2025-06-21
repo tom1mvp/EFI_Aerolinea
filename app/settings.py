@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     'home',
     'passengers_management',
     'reports',
-    'reservations'
+    'reservations',
+    'ticket',
 ]
 
 MIDDLEWARE = [
