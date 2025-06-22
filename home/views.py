@@ -1,54 +1,80 @@
+
 from django.shortcuts import redirect, render
+from django.contrib.auth import logout, login
 from django.contrib import messages
-from django.contrib.auth import authenticate, logout, login  # Import the login function
+from user.forms import RegisterForm, LoginForm
+from django.views import View
+
+
+
 
 from user.services.user import UserServices
 
 
-# Home views
-def home_view(request):
-    return render(request, 'index.html')
+# User views
+class HomeView(View):
+    def get(self, request):
+        return render(request, 'index.html')
+    
+class LogoutView(View):
+    def get(self, request):
+        logout(request)
+        return redirect('login')
 
-def login_view(request):
-    if request.method == "POST":
-        username = request.POST.get("username")
-        password = request.POST.get("password")
+class LoginView(View):
+    def get(self, request):
+        form = LoginForm()
         
-        user = authenticate(
+        return render(
             request,
-            username=username,
-            password=password
+            'accounts/login.html',
+            {"form": form}
         )
-        if user is not None:
-            login(request, user)  # Log in the user
-            messages.success(request, "Sesión iniciada correctamente")
-            return redirect("index")
-        else:
-            messages.error(request, "Nombre de usuario o contraseña incorrectos")
-    return render(request, 'accounts/login.html')
-                
-def logout_view(request):
-    logout(request)
-    return redirect('login')
+        
+    def post(self, request):
+        form = LoginForm(request.POST)
 
-def register_view(request):
-    if request.method == "POST":
-        first_name = request.POST.get("first_name")
-        last_name = request.POST.get("last_name")
-        username = request.POST.get("username")
-        password = request.POST.get("password")
-        email = request.POST.get("email")
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
 
         try:
-            UserServices.register(
-                first_name=first_name,
-                last_name=last_name,
+            UserServices.login(request, username, password)
+            messages.success(request, "Sesión iniciada")
+            return redirect("index")
+
+        except ValueError as e:
+            messages.error(request, str(e))
+
+        return render(request, "accounts/login.html", {"form": form}, {"user": username})
+
+
+        
+class RegisterView(View):
+    def get(self, request):
+        form = RegisterForm()
+        return render(request, 'accounts/register.html', {"form": form})
+
+    def post(self, request):
+        form = RegisterForm(request.POST)
+
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            email = form.cleaned_data['email']
+            first_name = form.cleaned_data['first_name']
+            last_name = form.cleaned_data['last_name']
+
+            user = UserServices.register(
                 username=username,
                 password=password,
-                email=email
+                email=email,
+                first_name=first_name,
+                last_name=last_name
             )
-            messages.success(request, "Registro exitoso")
-            return redirect('login')
-        except Exception as e:
-            messages.error(request, "Error en el registro: " + str(e))
-    return render(request, 'accounts/register.html')
+
+            messages.success(request, "Registro exitoso. Ahora podés iniciar sesión.")
+            return redirect("login")
+
+        messages.error(request, "Por favor corregí los errores en el formulario.")
+        return render(request, 'accounts/register.html', {"form": form})

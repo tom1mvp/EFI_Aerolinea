@@ -3,27 +3,18 @@
   <h2 class="text-2xl font-bold text-orange-500 mb-4">Inicio de Sesión</h2>
   <form method="post">
     {% csrf_token %}
+    
+    {{ form.non_field_errors }}
+
     <div class="mb-4">
-      <label for="username" class="block text-sm font-medium text-gray-700">Nombre de Usuario</label>
-      <input
-        type="text"
-        name="username"
-        id="username"
-        class="w-full border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
-        placeholder="Escriba su nombre de usuario"
-        required
-      />
+      <label for="username" class="block text-sm font-medium text-gray-700">{{form.username.label_tag}}</label>
+        {{ form.username }}
+        {{ form.username.errors }}
     </div>
     <div class="mb-4">
-      <label for="password" class="block text-sm font-medium text-gray-700">Contraseña</label>
-      <input
-        type="password"
-        name="password"
-        id="password"
-        class="w-full border-gray-300 rounded-md focus:ring-orange-500 focus:border-orange-500"
-        placeholder="Escriba su contraseña"
-        required
-      />
+      <label for="password" class="block text-sm font-medium text-gray-700">{{form.password.label_tag}}</label>
+       {{ form.password }}
+       {{ form.password.errors }}
     </div>
     <button type="submit" class="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600"
       >Iniciar Sesión</button

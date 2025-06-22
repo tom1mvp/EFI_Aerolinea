@@ -1,6 +1,7 @@
 from django.contrib.auth.hashers import make_password, check_password
 
 
+
 from user.repositories.user import UserRepository
 
 # User service
@@ -13,7 +14,7 @@ class UserServices:
     
     # Register and login logic
     @staticmethod
-    def login(username, password):
+    def login(request, username, password):
         user = UserRepository.get_by_username(username)
         
         if not user:
@@ -22,6 +23,7 @@ class UserServices:
         # Remove the re-hashing of the password
         if not check_password(password, user.password):
             raise ValueError("La contraseña es incorrecta")
+
         
         return user
     

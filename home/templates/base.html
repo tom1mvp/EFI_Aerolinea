@@ -17,12 +17,12 @@
     <div class="flex">
       <nav class="bg-orange-400 text-white w-44 p-6 shadow-lg h-screen">
         <ul class="space-y-4">
-          {% if user.is_authenticated %}
+          {% if user %}
           <li>
-            <a href="{% url 'vuelos' %}" class="hover:text-gray-200">Vuelos</a>
+            <a  class="hover:text-gray-200">Vuelos</a>
           </li>
           <li>
-            <a href="{% url 'asientos' %}" class="hover:text-gray-200">Asientos</a>
+            <a  class="hover:text-gray-200">Asientos</a>
           </li>
           <li>
             <a href="{% url 'logout' %}" class="hover:text-gray-200">Salir</a>
