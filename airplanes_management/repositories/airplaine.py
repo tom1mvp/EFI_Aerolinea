@@ -1,50 +1,54 @@
 from airplanes_management.models import Airplane, Seat
-from airplanes_management.service.airplane_service import AirplaneService
+
 
 class AirplaneRepository:
     # Method GET
     @staticmethod
-    def get_all_airplanes() -> list[Airplane]:
+    def get_all_airplanes():
         return Airplane.objects.all()
     
     @staticmethod
-    def get_airplane_by_id(airplane_id: int) -> Airplane:
+    def get_airplane_by_id(airplane_id):
         try:
             return Airplane.objects.get(id=airplane_id)
         except Airplane.DoesNotExist:
             return None
         
     @staticmethod
-    def get_airplane_by_name(name: str) -> Airplane:
+    def get_airplane_by_name(name):
         return Airplane.objects.filter(name__icontains=name)
 
     # Method POST
     @staticmethod
-    def create_airplane(form):
-        airplane = form.save()
-        AirplaneService.generate_seat(airplane)
-        return airplane
+    def create_airplane(name, capacity, row, column, state):
+        new_airplane = Airplane.objects.create(
+            name=name,
+            capacity=capacity,
+            row=row,
+            column=column,
+            state=state
+        )
+        
+        return new_airplane
 
     # Method PUT
     @staticmethod
     def update_airplane(
-        airplane: Airplane,
-        name: str = None,
-        capacity: int = None,
-        state: str = None
-    ) -> Airplane:
-        if name is not None:
-            airplane.name = name
-        if capacity is not None:
-            airplane.capacity = capacity
-        if state is not None:
-            airplane.state = state
-        airplane.save()
-        return airplane
+        airplane_id,
+        name,
+        capacity,
+        row,
+        column,
+        state
+    ):
+      airplane = Airplane.objects.filter(id=airplane_id).first()
+      
+      if not airplane:
+          raise ValueError('El avion no existe')
     
     # Mehtod DELETE
     @staticmethod
-    def delete_airplane(airplane: Airplane) -> bool:
+    def delete_airplane(airplane):
         try:
             airplane.delete()
             return True
@@ -65,6 +69,9 @@ class AirplaneRepository:
             raise ValueError("El avion no exite")
 
         return Seat.objects.filter(airplane=airplane)
+    
+    def get_seat_by_id(seat_id):
+        return Seat.objects.filter(id=seat_id).first()
     
     @staticmethod
     def get_by_tipe(tipe: str):

@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .forms import AirplaneForm
-from .service.airplane_service import AirplaneService
+from .service.airplane import AirplaneService
 
 def create_airplane(request):
     if request.method == 'POST':

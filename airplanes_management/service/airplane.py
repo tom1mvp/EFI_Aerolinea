@@ -1,11 +1,34 @@
-from ..repositories import airplane_repository
+from airplanes_management.repositories.airplaine import AirplaneRepository
 
 class AirplaneService:
+    
+    @staticmethod
+    def get_all_airplanes():
+        return AirplaneRepository.get_all_airplanes()
+
+    @staticmethod
+    def get_airplane_by_id(airplane_id):
+        return AirplaneRepository.get_airplane_by_id(airplane_id)
+
+    @staticmethod
+    def get_airplane_by_name(name):
+        return AirplaneRepository.get_airplane_by_name(name)
+    
     @staticmethod
     def create_airplane(form):
         airplane = form.save()
         AirplaneService.generate_seat(airplane)
         return airplane
+    
+    @staticmethod
+    def update_airplane(airplane, form):
+        return AirplaneRepository.update_airplane(airplane, form)
+        
+    @staticmethod
+    def delete_airplane(airplane):
+        return AirplaneRepository.delete_airplane(airplane)
+
+
     """
     @staticmethod
     def generate_seat(airplane):
@@ -21,23 +44,3 @@ class AirplaneService:
                     state='disponible'
                 )
     """        
-        
-    @staticmethod
-    def delete_airplane(airplane):
-        return airplane_repository.delete_airplane(airplane)
-
-    @staticmethod
-    def update_airplane(airplane, form):
-        return airplane_repository.update_airplane(airplane, form)
-
-    @staticmethod
-    def get_all_airplanes():
-        return airplane_repository.get_all_airplanes()
-
-    @staticmethod
-    def get_airplane_by_id(airplane_id):
-        return airplane_repository.get_airplane_by_id(airplane_id)
-
-    @staticmethod
-    def get_airplane_by_name(name):
-        return airplane_repository.get_airplane_by_name(name)
