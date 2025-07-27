@@ -1,3 +1,6 @@
+import mailtrap as mt
+from django.conf import settings
+
 from reservations.repositories.reservations import ReservationRepository
 from passengers_management.repositories.passengers import PassengerRepository
 from flights_management.repositories.flights import FlightsRepository
@@ -106,4 +109,36 @@ class ReservationServices:
         return data
 
 
-    """ Falta crear la generacion de boletos electronicos (proxima version) """
+    # Send email
+    @staticmethod
+    def send_mail(reservation_id):
+        reservation = ReservationRepository.get_by_id(reservation_id=reservation_id)
+        
+        if not reservation:
+            raise ValueError("No se encontro la reservación.")
+        
+        passenger = reservation.passenger.user
+        
+        passenger_mail = passenger.email
+        
+        
+        if passenger_mail.endswith("@gmail.com") or passenger_mail.endswith("@hotmail.com"):
+            mail = mt.Mail(
+                sender=mt.Address(email="splinteraerolineas@gmail.com", name="Aerolineas Splinter"),
+                to=[mt.Address(email=passenger_mail)],
+                subject="Confirmación de boleto",
+                text = (
+                    f"Su reserva ({reservation}) fue registrada con éxito para el día "
+                    f"{reservation.reservation_date} con un precio de ${reservation.price}. "
+                    f"Su código de reserva es {reservation.reservation_code}."
+                ),
+                category="Alert",
+            )
+            
+            client = mt.MailtrapClient(token=settings.MAILTRAP_TOKEN)
+            response = client.send(mail)
+            
+            return response
+        else:
+            raise ValueError("No se pudo enviar el mail")
+        

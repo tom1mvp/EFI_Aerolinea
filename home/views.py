@@ -1,20 +1,22 @@
 
+
 from django.shortcuts import redirect, render
-from django.contrib.auth import logout, login
+from django.contrib.auth import logout, login, authenticate
 from django.contrib import messages
-from user.forms import RegisterForm, LoginForm
 from django.views import View
 
 
+from user.forms import RegisterForm, LoginForm
 
 
 from user.services.user import UserServices
-
+from flights_management.services.flights import FlightsServices
 
 # User views
 class HomeView(View):
     def get(self, request):
-        return render(request, 'index.html')
+        flights = FlightsServices.get_all_flights()
+        return render(request, 'index.html', {'user': request.user, 'flights': flights})
     
 class LogoutView(View):
     def get(self, request):
@@ -38,17 +40,20 @@ class LoginView(View):
             username = form.cleaned_data['username']
             password = form.cleaned_data['password']
 
-        try:
-            UserServices.login(request, username, password)
-            messages.success(request, "Sesión iniciada")
-            return redirect("index")
+            user = authenticate(request, username=username, password=password)
+        
+            if user is not None:
+                login(request, user)
+                messages.success(request, "Sesión iniciada")
+                
+                return redirect("index")
+            else:
+                messages.error(request, "Usuario o contraseña inválidos")
 
-        except ValueError as e:
-            messages.error(request, str(e))
+        else:
+            messages.error(request, "Por favor completa correctamente el formulario.")
 
-        return render(request, "accounts/login.html", {"form": form}, {"user": username})
-
-
+        return render(request, "accounts/login.html", {"form": form})
         
 class RegisterView(View):
     def get(self, request):
@@ -78,3 +83,4 @@ class RegisterView(View):
 
         messages.error(request, "Por favor corregí los errores en el formulario.")
         return render(request, 'accounts/register.html', {"form": form})
+

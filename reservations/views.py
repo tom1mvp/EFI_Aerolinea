@@ -24,14 +24,33 @@ def reservation_detail(request, reservation_id):
 def reservation_create(request):
     passengers = ReservationServices.get_all_passengers()
     if request.method == "POST":
+        
         passenger_id = request.POST.get("passenger_id")
+        flight_id = request.POST.get("flight_id")
+        seat_id = request.POST.get("seat_id")
         flight_number = request.POST.get("flight_number")
+        status = request.POST.get("status")
+        price = request.POST.get("price")
+        reservation_code = request.POST.get("reservation_code")
+        
         try:
-            ReservationServices.create_reservation(passenger_id=passenger_id, flight_number=flight_number)
-            messages.success(request, "Reservation created successfully.")
+            reservation = ReservationServices.create_reservation(
+                passenger_id=passenger_id,
+                flight_id=flight_id,
+                seat_id=seat_id,
+                flight_number=flight_number,
+                status=status,
+                price=price,
+                reservation_code=reservation_code
+            )
+            # Send mail
+            ReservationServices.send_mail(reservation.id)
+            messages.success(request, "Reserva creada y email enviado con éxito.")
+        
         except ValueError as e:
             messages.error(request, str(e))
         return redirect('reservation_list')
+    
     return render(request, 'reservations/create.html', {'passengers': passengers})
 
 def reservation_update(request, reservation_id):
