@@ -78,4 +78,32 @@ class ReservationServices:
         return ReservationRepository.check_seat_availability(flight_id, seat_id)
 
 
+    # Function: Report passagers by flights
+    @staticmethod
+    def reports_passagers_by_flights(flight_id):
+        reservations = ReservationRepository.get_by_flight_id(flight_id)
+        
+        if not reservations.exists():
+            raise ValueError('No reservations found for this flight.')
+
+        data = []
+        
+        for reservation in reservations:
+            passenger = reservation.passenger.user
+            data.append({
+                'pasajero': f"{passenger.first_name} {passenger.last_name}",
+                'email': passenger.email,
+                'documento': reservation.passenger.document,
+                'telefono': reservation.passenger.phone_number,
+                'asiento': reservation.seat.number,   # <-- acá el cambio
+                'fecha_reserva': reservation.reservation_date,
+                'estado': reservation.status,
+                'precio': str(reservation.price),
+                'codigo_reserva': reservation.reservation_code,
+            })
+
+
+        return data
+
+
     """ Falta crear la generacion de boletos electronicos (proxima version) """

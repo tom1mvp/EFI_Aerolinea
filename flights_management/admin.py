@@ -1,8 +1,8 @@
 from django.contrib import admin
 
-
 from flights_management.models import Flight
 from flights_management.services.flights import FlightsServices
+
 
 @admin.register(Flight)
 class FlightAdmin(admin.ModelAdmin):
@@ -41,3 +41,4 @@ class FlightAdmin(admin.ModelAdmin):
 
     def delete_model(self, request, obj):
         FlightsServices.delete_flight(obj.id)
+

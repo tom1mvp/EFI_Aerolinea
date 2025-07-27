@@ -79,3 +79,5 @@ class FlightsRepository:
         if not flight:
             raise ValueError('No se encontró el vuelo específico.')
         flight.delete()
+        
+        

@@ -1,6 +1,13 @@
+import openpyxl
+
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.http import HttpResponse
+
+
 from reservations.services.reservations import ReservationServices
+
 
 def reservation_list(request):
     reservations = ReservationServices.get_all_reservations()
@@ -62,3 +69,35 @@ def reservation_delete(request, reservation_id):
             messages.error(request, str(e))
         return redirect('reservation_list')
     return render(request, 'reservations/delete.html', {'reservation': reservation})
+
+def download_passenger_excel(self, request):
+    flight_ids = request.GET.get('flights')
+    if not flight_ids:
+        messages.error(request, "No se encontró el vuelo.")
+        return redirect('..')
+
+    flight_ids = [int(fid) for fid in flight_ids.split(',')]
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Pasajeros"
+    ws.append(['Vuelo ID', 'Pasajero', 'Email', 'Documento', 'Teléfono', 'Asiento'])
+
+    for fid in flight_ids:
+        passengers = ReservationServices.reports_passagers_by_flights(fid)
+        for p in passengers:
+            ws.append([
+                fid,
+                p.pasajero,
+                p.email,
+                p.documento,
+                p.telefono,
+                p.asiento
+            ])
+
+    # Esta es la única forma segura y correcta de generar descarga en Django
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    response['Content-Disposition'] = 'attachment; filename="reporte_pasajeros.xlsx"'
+    wb.save(response)
+    return response

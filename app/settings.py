@@ -57,7 +57,6 @@ INSTALLED_APPS = [
     'user',
     'home',
     'passengers_management',
-    'reports',
     'reservations',
     'ticket',
 ]
