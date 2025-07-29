@@ -10,7 +10,7 @@ class FlightsServices:
     
     @staticmethod
     def get_by_destination(destination):
-        return FlightsRepository.get_by_destination(destination=destination)
+        return FlightsRepository.get_by_destination(destination)
     
     @staticmethod
     def get_by_duration(duration):
