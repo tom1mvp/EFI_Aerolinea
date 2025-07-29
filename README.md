@@ -47,14 +47,19 @@ A continuación, se detalla el contenido de esta nueva actualización del proyec
 
 ## 📦 Contenido
 
-Esta nueva versión incorpora tanto nuevas funcionalidades como mejoras en la estructura visual del sistema mediante el uso de **templates personalizados**.  
-Se han desarrollado vistas clave como:
+Esta versión introduce mejoras tanto funcionales como visuales:
 
-- **`base.html`**: Plantilla base que estructura la interfaz general del sitio.
-- **`login.html`** y **`register.html`**: Formularios de autenticación.
-- Otras vistas específicas que se integrarán progresivamente en versiones futuras.
+Se configuró la carpeta themes para integrar Tailwind CSS mediante **django-tailwind**, lo que permite aplicar estilos modernos, responsivos y consistentes en toda la interfaz.
 
-Todos los templates están construidos utilizando **[django-tailwind](https://django-tailwind.readthedocs.io/)**, un framework que permite integrar de forma eficiente las utilidades y estilos de **Tailwind CSS** dentro del entorno de Django. Esto nos permite desarrollar interfaces modernas, responsivas y altamente personalizables, manteniendo la coherencia visual en toda la aplicación.
+***Se desarrollaron vistas clave utilizando templates personalizados:***
+
+* base.html: plantilla base que estructura la interfaz general del sistema.
+
+* login.html y register.html: formularios para autenticación de usuarios.
+
+***Se implementó un navbar funcional con las siguientes características:***
+
+* Accesos directos a las páginas de Inicio de sesión y Registro.
 
 ## 🧩 Estructura y navegación
 
