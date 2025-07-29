@@ -15,9 +15,23 @@ from flights_management.services.flights import FlightsServices
 # User views
 class HomeView(View):
     def get(self, request):
-        flights = FlightsServices.get_all_flights()
-        return render(request, 'index.html', {'user': request.user, 'flights': flights})
+        destination = request.GET.get("q", "").strip()
+
+        if destination:
+            flights = FlightsServices.get_by_destination(destination)
     
+            if not flights:
+                messages.warning(request, "No se encontraron vuelos para ese destino.")
+        else:
+            flights = FlightsServices.get_all_flights()
+
+        return render(request, 'index.html', {
+            'user': request.user,
+            'flights': flights,
+            'query': destination
+        })
+
+        
 class LogoutView(View):
     def get(self, request):
         logout(request)

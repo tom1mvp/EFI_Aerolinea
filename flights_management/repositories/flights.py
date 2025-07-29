@@ -17,7 +17,7 @@ class FlightsRepository:
     
     @staticmethod
     def get_by_destination(destination):
-        return Flight.objects.filter(destination=destination).first()
+        return Flight.objects.filter(destination__icontains=destination)
     
     # CREATE
     @staticmethod

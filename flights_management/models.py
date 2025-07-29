@@ -5,8 +5,8 @@ class Flight(models.Model):
     airplane = models.ForeignKey('airplanes_management.Airplane', on_delete=models.PROTECT)
     origin = models.CharField(max_length=100, null=False)
     destination = models.CharField(max_length=100, null=False)
-    departure_date = models.DateField(null=False, blank=False)
-    arrival_date = models.DateField(null=False, blank=False)
+    departure_date = models.DateTimeField(null=False, blank=False)
+    arrival_date = models.DateTimeField(null=False, blank=False)
     duration = models.DecimalField(max_digits=5, decimal_places=2, null=False)
     status = models.CharField(max_length=20, choices=[
         ('activo', 'Activo'),
