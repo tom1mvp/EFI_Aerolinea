@@ -11,13 +11,13 @@
   <body class="bg-indigo-100">
     <header class="bg-orange-500 text-white p-4 shadow-lg">
       <div class="container mx-auto flex justify-center items-center">
-        <h1 class="text-2xl font-bold flex-1 text-center ml-48">Aerolíneas Splinter</h1>
+        <a href="{% url 'index' %}" class="text-2xl font-bold flex-1 text-center ml-48">Aerolíneas Splinter</a>
       </div>
     </header>
     <div class="flex">
       <nav class="bg-orange-400 text-white w-44 p-6 shadow-lg h-screen">
         <ul class="space-y-4">
-          {% if user %}
+          {% if user.is_authenticated %}
           <li>
             <a  class="hover:text-gray-200">Vuelos</a>
           </li>

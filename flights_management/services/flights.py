@@ -1,5 +1,6 @@
 from flights_management.repositories.flights import FlightsRepository
 from airplanes_management.repositories.airplaine import AirplaneRepository
+from reservations.repositories.reservations import ReservationRepository
 
 class FlightsServices:
     # GET

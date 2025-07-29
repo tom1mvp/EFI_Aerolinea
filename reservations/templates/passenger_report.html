@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% load static %}
+
+
+{% block content %}
+  <div class="max-w-5xl mx-auto px-4 py-6">
+    <h1 class="text-3xl font-bold text-orange-700 mb-10 border-b pb-2 border-orange-300">
+      Reporte de Pasajeros
+    </h1>
+
+    {% for flight_id, passengers in report_data.items %}
+      <div class="bg-amber-50 border border-orange-200 shadow-lg rounded-2xl p-6 mb-8 transition-colors duration-300">
+        <h2 class="text-xl text-orange-800 font-semibold mb-4 flex items-center gap-2">
+          Vuelo <span class="text-sm text-orange-600">(ID: {{ flight_id }})</span>
+        </h2>
+
+        {% if passengers %}
+          <div class="overflow-x-auto rounded-lg">
+            <table class="min-w-full divide-y divide-orange-200 text-sm">
+              <thead class="bg-orange-100 text-orange-900">
+                <tr>
+                  <th class="px-4 py-2 text-left font-semibold">Pasajero</th>
+                  <th class="px-4 py-2 text-left font-semibold">Email</th>
+                  <th class="px-4 py-2 text-left font-semibold">Documento</th>
+                  <th class="px-4 py-2 text-left font-semibold">Teléfono</th>
+                  <th class="px-4 py-2 text-left font-semibold">Asiento</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-orange-100">
+                {% for p in passengers %}
+                  <tr class="hover:bg-orange-200 transition-colors duration-150">
+                    <td class="px-4 py-2">{{ p.pasajero }}</td>
+                    <td class="px-4 py-2">{{ p.email }}</td>
+                    <td class="px-4 py-2">{{ p.documento }}</td>
+                    <td class="px-4 py-2">{{ p.telefono }}</td>
+                    <td class="px-4 py-2">{{ p.asiento }}</td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+            {% if request.GET.flights %}
+              <div class="flex justify-end mt-6">
+                <a 
+                href="{% url 'admin:download-passenger-excel' %}?flights={{ request.GET.flights }}"
+                class="inline-flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-lg shadow hover:bg-green-600 transition duration-200"
+                >
+                <img 
+                src="{% static '/imgs/icon-excel.svg' %}" 
+                alt="Descargar Excel" 
+                class="w-6 h-auto"
+                />
+                </a>
+              </div>
+            {% endif %}
+          </div>
+        {% else %}
+          <p class="text-sm text-gray-600 mt-2">
+            No hay pasajeros para este vuelo.
+          </p>
+        {% endif %}
+      </div>
+    {% endfor %}
+
+    <div class="mt-6">
+      <a href=".." class="text-orange-600 hover:text-orange-800 hover:underline font-medium">
+        ← Volver a reservas
+      </a>
+    </div>
+  </div>
+{% endblock %}

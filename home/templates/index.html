@@ -1,2 +1,68 @@
 {% extends 'base.html' %}
 
+{% block content %}
+<section class="max-w-6xl mx-auto p-8 bg-white rounded-3xl shadow-2xl mt-6">
+    {% if user.is_authenticated %}
+        <div class="mb-6">
+            <h1 class="text-2xl font-bold text-orange-800">Bienvenido {{ user.username }}</h1>
+        </div>
+    {% endif %}
+
+    <h2 class="text-3xl font-bold text-orange-700 mb-6 flex items-center gap-2">✈️ Próximos vuelos</h2>
+
+    {% if flights %}
+    <div class="overflow-x-auto rounded-xl border border-orange-200 shadow-sm">
+        <table class="min-w-full divide-y divide-orange-100 text-sm text-orange-800">
+            <thead class="bg-orange-100 text-orange-900 uppercase text-xs font-semibold tracking-wider">
+                <tr>
+                    <th class="px-6 py-3">Avión</th>
+                    <th class="px-6 py-3">Origen</th>
+                    <th class="px-6 py-3">Destino</th>
+                    <th class="px-6 py-3">Hora salida</th>
+                    <th class="px-6 py-3">Hora llegada</th>
+                    <th class="px-6 py-3">Duración</th>
+                    <th class="px-6 py-3">Estado</th>
+                    <th class="px-6 py-3">Precio</th>
+                    <th class="px-6 py-3 text-center">Acción</th>
+                </tr>
+            </thead>
+            <tbody class="divide-y divide-orange-50 bg-orange-50">
+                {% for flight in flights %}
+                <tr class="hover:bg-orange-100 transition duration-200">
+                    <td class="px-6 py-4">{{ flight.airplane }}</td>
+                    <td class="px-6 py-4">{{ flight.origin }}</td>
+                    <td class="px-6 py-4">{{ flight.destination }}</td>
+                    <td class="px-6 py-4">{{ flight.departure_date|time:"H:i" }}</td>
+                    <td class="px-6 py-4">{{ flight.arrival_date|time:"H:i" }}</td>
+                    <td class="px-6 py-4">{{ flight.duration|stringformat:".1f" }} h</td>
+                    <td class="px-6 py-4">
+                        <span class="inline-block px-3 py-1 text-xs rounded-full font-semibold
+                            {% if flight.status == 'Confirmado' %}
+                                bg-green-100 text-green-800
+                            {% elif flight.status == 'Pendiente' %}
+                                bg-yellow-100 text-yellow-800
+                            {% elif flight.status == 'Cancelado' %}
+                                bg-red-100 text-red-800
+                            {% else %}
+                                bg-gray-100 text-gray-800
+                            {% endif %}
+                        ">
+                            {{ flight.status|capfirst }}
+                        </span>
+                    </td>
+                    <td class="px-6 py-4 font-bold text-orange-700">${{ flight.base_price|stringformat:".2f" }}</td>
+                    <td class="px-6 py-4 text-center">
+                        <button class="bg-yellow-400 hover:bg-yellow-300 text-black font-semibold py-2 px-4 rounded-lg shadow-sm transition">
+                            Reservar
+                        </button>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-orange-600 text-center py-6 font-medium">No hay vuelos disponibles por el momento.</p>
+    {% endif %}
+</section>
+{% endblock %}

@@ -1,3 +1,6 @@
+import mailtrap as mt
+from django.conf import settings
+
 from reservations.repositories.reservations import ReservationRepository
 from passengers_management.repositories.passengers import PassengerRepository
 from flights_management.repositories.flights import FlightsRepository
@@ -78,4 +81,64 @@ class ReservationServices:
         return ReservationRepository.check_seat_availability(flight_id, seat_id)
 
 
-    """ Falta crear la generacion de boletos electronicos (proxima version) """
+    # Function: Report passagers by flights
+    @staticmethod
+    def reports_passagers_by_flights(flight_id):
+        reservations = ReservationRepository.get_by_flight_id(flight_id)
+        
+        if not reservations.exists():
+            raise ValueError('No reservations found for this flight.')
+
+        data = []
+        
+        for reservation in reservations:
+            passenger = reservation.passenger.user
+            data.append({
+                'pasajero': f"{passenger.first_name} {passenger.last_name}",
+                'email': passenger.email,
+                'documento': reservation.passenger.document,
+                'telefono': reservation.passenger.phone_number,
+                'asiento': reservation.seat.number,   # <-- acá el cambio
+                'fecha_reserva': reservation.reservation_date,
+                'estado': reservation.status,
+                'precio': str(reservation.price),
+                'codigo_reserva': reservation.reservation_code,
+            })
+
+
+        return data
+
+
+    # Send email
+    @staticmethod
+    def send_mail(reservation_id):
+        reservation = ReservationRepository.get_by_id(reservation_id=reservation_id)
+        
+        if not reservation:
+            raise ValueError("No se encontro la reservación.")
+        
+        passenger = reservation.passenger.user
+        
+        passenger_mail = passenger.email
+        
+        
+        if passenger_mail.endswith("@gmail.com") or passenger_mail.endswith("@hotmail.com"):
+            mail = mt.Mail(
+                sender=mt.Address(email="splinteraerolineas@gmail.com", name="Aerolineas Splinter"),
+                to=[mt.Address(email=passenger_mail)],
+                subject="Confirmación de boleto",
+                text = (
+                    f"Su reserva ({reservation}) fue registrada con éxito para el día "
+                    f"{reservation.reservation_date} con un precio de ${reservation.price}. "
+                    f"Su código de reserva es {reservation.reservation_code}."
+                ),
+                category="Alert",
+            )
+            
+            client = mt.MailtrapClient(token=settings.MAILTRAP_TOKEN)
+            response = client.send(mail)
+            
+            return response
+        else:
+            raise ValueError("No se pudo enviar el mail")
+        

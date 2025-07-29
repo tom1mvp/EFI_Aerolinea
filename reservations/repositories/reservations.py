@@ -12,6 +12,11 @@ class ReservationRepository:
     @staticmethod
     def get_by_id(reservation_id):
         return Reservation.objects.filter(id=reservation_id).first()
+    
+    @staticmethod
+    def get_by_flight_id(flight_id):
+     return Reservation.objects.filter(flight_id=flight_id).select_related('passenger__user', 'seat')
+
 
     @staticmethod
     def create_reservation(

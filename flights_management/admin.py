@@ -1,11 +1,15 @@
 from django.contrib import admin
+<<<<<<< HEAD
 import openpyxl
 from django.http import HttpResponse
+=======
+>>>>>>> 31342434b0d2f48ad6df9142d7a9ad4d47f481c2
 
 from flights_management.models import Flight
 from flights_management.services.flights import FlightsServices
 from reservations.models import Reservation
 
+<<<<<<< HEAD
 @admin.action(description="Reporte de pasajeros por vuelo/s")
 def exportar_pasajeros_excel(modeladmin, request, queryset):
     wb = openpyxl.Workbook()
@@ -36,6 +40,9 @@ def exportar_pasajeros_excel(modeladmin, request, queryset):
     response['Content-Disposition'] = 'attachment; filename=pasajeros_por_vuelo.xlsx'
     wb.save(response)
     return response
+=======
+
+>>>>>>> 31342434b0d2f48ad6df9142d7a9ad4d47f481c2
 @admin.register(Flight)
 class FlightAdmin(admin.ModelAdmin):
     list_display = (
@@ -74,3 +81,4 @@ class FlightAdmin(admin.ModelAdmin):
 
     def delete_model(self, request, obj):
         FlightsServices.delete_flight(obj.id)
+

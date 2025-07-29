@@ -1,6 +1,13 @@
+import openpyxl
+
+
 from django.shortcuts import render, redirect
 from django.contrib import messages
+from django.http import HttpResponse
+
+
 from reservations.services.reservations import ReservationServices
+
 
 def reservation_list(request):
     reservations = ReservationServices.get_all_reservations()
@@ -17,14 +24,33 @@ def reservation_detail(request, reservation_id):
 def reservation_create(request):
     passengers = ReservationServices.get_all_passengers()
     if request.method == "POST":
+        
         passenger_id = request.POST.get("passenger_id")
+        flight_id = request.POST.get("flight_id")
+        seat_id = request.POST.get("seat_id")
         flight_number = request.POST.get("flight_number")
+        status = request.POST.get("status")
+        price = request.POST.get("price")
+        reservation_code = request.POST.get("reservation_code")
+        
         try:
-            ReservationServices.create_reservation(passenger_id=passenger_id, flight_number=flight_number)
-            messages.success(request, "Reservation created successfully.")
+            reservation = ReservationServices.create_reservation(
+                passenger_id=passenger_id,
+                flight_id=flight_id,
+                seat_id=seat_id,
+                flight_number=flight_number,
+                status=status,
+                price=price,
+                reservation_code=reservation_code
+            )
+            # Send mail
+            ReservationServices.send_mail(reservation.id)
+            messages.success(request, "Reserva creada y email enviado con éxito.")
+        
         except ValueError as e:
             messages.error(request, str(e))
         return redirect('reservation_list')
+    
     return render(request, 'reservations/create.html', {'passengers': passengers})
 
 def reservation_update(request, reservation_id):
@@ -62,3 +88,35 @@ def reservation_delete(request, reservation_id):
             messages.error(request, str(e))
         return redirect('reservation_list')
     return render(request, 'reservations/delete.html', {'reservation': reservation})
+
+def download_passenger_excel(self, request):
+    flight_ids = request.GET.get('flights')
+    if not flight_ids:
+        messages.error(request, "No se encontró el vuelo.")
+        return redirect('..')
+
+    flight_ids = [int(fid) for fid in flight_ids.split(',')]
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "Pasajeros"
+    ws.append(['Vuelo ID', 'Pasajero', 'Email', 'Documento', 'Teléfono', 'Asiento'])
+
+    for fid in flight_ids:
+        passengers = ReservationServices.reports_passagers_by_flights(fid)
+        for p in passengers:
+            ws.append([
+                fid,
+                p.pasajero,
+                p.email,
+                p.documento,
+                p.telefono,
+                p.asiento
+            ])
+
+    # Esta es la única forma segura y correcta de generar descarga en Django
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    response['Content-Disposition'] = 'attachment; filename="reporte_pasajeros.xlsx"'
+    wb.save(response)
+    return response
