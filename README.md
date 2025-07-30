@@ -1,6 +1,6 @@
 ## 🛪 EFI Django 2025: *Aerolíneas Splinter* 🧑‍✈️
 
-**Actualización del día lunes 16/07/2025**:
+**Actualización del día lunes 16/06/2025**:
 
 Se implementaron las funcionalidades de **inicio de sesión** y **registro**, las cuales incluyen sus respectivos formularios y templates.  
 También se añadieron el template base y la página de inicio del sitio web.
