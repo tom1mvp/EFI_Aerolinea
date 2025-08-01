@@ -42,31 +42,15 @@ class ReservationRepository:
 
     @staticmethod
     def update_reservation(
-        reservation_id,
-        passenger_id,
-        flight_id,
-        seat_id,
+        reservation,
+        passenger,
+        flight,
+        seat,
         flight_number,
         status,
         price,
         reservation_code
     ):
-        reservation = Reservation.objects.filter(id=reservation_id).first()
-
-        if not reservation:
-            raise ValueError("No se encontró la reservación")
-
-        passenger = Passenger.objects.filter(id=passenger_id).first()
-        flight = Flight.objects.filter(id=flight_id).first()
-        seat = Seat.objects.filter(id=seat_id).first()
-
-        if not passenger:
-            raise ValueError("No se encontró el pasajero")
-        if not flight:
-            raise ValueError("No se encontró el vuelo")
-        if not seat:
-            raise ValueError("No se encontró el asiento")
-
         reservation.passenger = passenger
         reservation.flight = flight
         reservation.seat = seat
@@ -74,10 +58,9 @@ class ReservationRepository:
         reservation.status = status
         reservation.price = price
         reservation.reservation_code = reservation_code
-
         reservation.save()
-
         return reservation
+
 
     @staticmethod
     def delete_reservation(reservation_id):

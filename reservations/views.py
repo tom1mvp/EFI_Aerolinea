@@ -1,13 +1,46 @@
 import openpyxl
 
 
-from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponse
-
-
+from reservations.models import Reservation
 from reservations.services.reservations import ReservationServices
 
+@login_required
+def select_seat(request, flight_id):
+    if request.method == 'POST':
+        document = request.POST.get('document')
+        phone_number = request.POST.get('phone_number')
+        seat_id = request.POST.get('seat_id')
+
+        result = ReservationServices.reserve_seat(
+            user=request.user,
+            flight_id=flight_id,
+            seat_id=seat_id,
+            document=document,
+            phone_number=phone_number
+        )
+        messages.add_message(request, result["level"], result["message"])
+        if result["success"]:
+            return redirect('index')
+
+    try:
+        context = ReservationServices.get_seat_selection_context(flight_id)
+    except ValueError as e:
+        messages.error(request, str(e))
+        return redirect('index')
+
+    return render(request, 'reservations/select_seat.html', context)
+
+
+@login_required
+def my_reservations(request):
+    user = request.user
+    reservations = Reservation.objects.filter(passenger__user=user).order_by('-reservation_date')
+    return render(request, 'reservations/my_reservations.html', {'reservations': reservations})
 
 def reservation_list(request):
     reservations = ReservationServices.get_all_reservations()

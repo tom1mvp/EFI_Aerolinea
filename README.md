@@ -1,75 +1,82 @@
 ## 🛪 EFI Django 2025: *Aerolíneas Splinter* 🧑‍✈️
 
-**Actualización del día lunes 16/07/2025**:
+**Actualización del día Viernes 01/08/2025**:
 
-Se implementaron las funcionalidades de **inicio de sesión** y **registro**, las cuales incluyen sus respectivos formularios y templates.  
-También se añadieron el template base y la página de inicio del sitio web.
+Se añadieron funcionalidades clave relacionadas con el sistema de **reservas de vuelos**, autenticación y gestión de usuarios.  
+Además, se reemplazó el modelo de usuario por una implementación basada en `AbstractUser`, permitiendo una mayor personalización del sistema.
 
-A continuación, se detalla el contenido de esta nueva actualización del proyecto.
+A continuación, se detalla el contenido y las novedades de esta versión.
 
-## ⚙️ Funciones
+---
 
-#### Get all users
+## ⚙️ Funcionalidades principales
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `-` | `-` |          **Este endopoint no requiere parametros** |
+### ✅ Sistema de autenticación
 
-#### Get item by id
+- Registro e inicio de sesión totalmente funcionales.
+- Navbar contextual con opciones según el estado de sesión.
+- Acceso restringido a funcionalidades importantes (como reservar un asiento).
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `int`    | *Este endpoint no requiere parámetros.* |
+### 🧑‍💼 Cambio de modelo de usuario
 
-#### Post (create user)
+El modelo de usuario fue reemplazado por una clase personalizada basada en `**AbstractUser**`, lo cual permite:
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-|`first_name`|    `str`| *Nombre del usuario*. **Requerido.**|
-|`last_name`| `str`| *Apellido del usuario.* **Requerido.**|
-|`email`| `str`| *Email del usuario.* **Requerido.**|
+- Agregar campos personalizados fácilmente (por ejemplo, número de documento o teléfono).
+- Mayor flexibilidad para futuras funcionalidades (roles, permisos extendidos, etc.).
+- Compatibilidad total con el sistema de autenticación de Django.
 
+Más sobre esto en la [documentación oficial](https://docs.djangoproject.com/en/stable/topics/auth/customizing/#substituting-a-custom-user-model).
 
-#### Put (update user)
+---
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `int`    | *ID del producto que se desea actualizar.*  **Requerido**|
-|`first_name`|    `str`| *Nombre del usuario*. **Requerido.**|
-|`last_name`| `str`| *Apellido del usuario.* **Requerido.**|
-|`email`| `str`| *Email del usuario.* **Requerido.**|
+## ✈️ Sistema de reservas
 
-#### Delete (delete user)
+Un usuario **logueado** ahora puede:
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `int`    | *ID del usuario que se desea eliminar.*  **Requerido.** |
+1. Visualizar los **asientos disponibles** de un vuelo específico.
+2. Seleccionar un asiento **libre**.
+3. Confirmar su reserva ingresando su **documento (DNI)** y **teléfono**.
+4. Ver todas sus **reservas realizadas** con información detallada.
+
+Los asientos están clasificados visualmente como:
+
+- 🟩 **Libre** → Disponible para reservar.
+- 🟨 **Reservado** → Ya fue apartado por otro usuario.
+- 🟥 **Ocupado** → No está disponible (por uso anterior u otra lógica de negocio).
+
+---
+
+## 🚫 Restricciones del sistema
+
+El sistema impone las siguientes **reglas** para asegurar integridad y coherencia:
+
+- 🔁 **Solo una reserva por vuelo**: un usuario no puede reservar más de una vez en el mismo vuelo.
+- ✅ El usuario debe ingresar el **mismo DNI y teléfono** que haya usado anteriormente.
+- ⛔️ No es posible seleccionar un asiento **ocupado** ni **reservado**.
+- 👤 Las reservas solo están disponibles para **usuarios autenticados**.
+
+---
 
 ## 📦 Contenido
 
-Esta nueva versión incorpora tanto nuevas funcionalidades como mejoras en la estructura visual del sistema mediante el uso de **templates personalizados**.  
-Se han desarrollado vistas clave como:
+Se incorporaron mejoras visuales y de estructura:
 
-- **`base.html`**: Plantilla base que estructura la interfaz general del sitio.
-- **`login.html`** y **`register.html`**: Formularios de autenticación.
-- Otras vistas específicas que se integrarán progresivamente en versiones futuras.
+- Templates principales: `bmy_reservations`, `seat_selection.html`.
+- Integración con **Tailwind CSS** mediante `django-tailwind` para una experiencia moderna, responsiva y estilizada.
 
-Todos los templates están construidos utilizando **[django-tailwind](https://django-tailwind.readthedocs.io/)**, un framework que permite integrar de forma eficiente las utilidades y estilos de **Tailwind CSS** dentro del entorno de Django. Esto nos permite desarrollar interfaces modernas, responsivas y altamente personalizables, manteniendo la coherencia visual en toda la aplicación.
+---
 
-## 🧩 Estructura y navegación
+## 🧩 Navegación y estructura
 
-La interfaz del formulario de inicio de sesión incluye un **navbar** funcional, el cual contiene:
+El sistema incluye:
 
-- Accesos directos a las páginas de **Inicio de sesión** y **Registro**.
-- Un botón de **cerrar sesión** (visible para usuarios autenticados).
-- En futuras versiones, este menú se expandirá con enlaces a funciones internas del sistema.
+- Barra de navegación dinámica.
+- Vistas públicas y protegidas.
+- Flujo de autenticación seguro.
+- Formularios claros y consistentes.
 
-## 🔐 Seguridad y flujo de usuarios
+---
 
-En futuras versiones se implementará una restricción de acceso:  
-> Los usuarios podrán navegar por ciertas secciones de la aplicación, pero **no podrán comprar boletos de avión sin estar autenticados**.
-
-Esta decisión responde a prácticas recomendadas de seguridad y control de acceso dentro de sistemas de gestión de usuarios.
 
 ## ✍️ Autores 
 

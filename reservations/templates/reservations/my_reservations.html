@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2 class="text-2xl font-bold text-orange-800 mb-6">Mis Reservas</h2>
+
+{% if reservations %}
+    <div class="space-y-4">
+        {% for reserva in reservations %}
+            <div class="bg-white shadow rounded p-4 border border-gray-200">
+                <p><strong>Vuelo:</strong> {{ reserva.flight.origin }} → {{ reserva.flight.destination }}</p>
+                <p><strong>Fecha:</strong> {{ reserva.reservation_date|date:"d/m/Y H:i" }}</p>
+                <p><strong>Asiento:</strong> {{ reserva.seat.number }}</p>
+                <p><strong>Precio:</strong> ${{ reserva.price }}</p>
+                <p><strong>Estado:</strong> {{ reserva.status }}</p>
+                <p><strong>Código de reserva:</strong> {{ reserva.reservation_code }}</p>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="text-gray-600">No tienes reservas todavía.</p>
+{% endif %}
+{% endblock %}

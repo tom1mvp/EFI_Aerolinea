@@ -56,12 +56,12 @@
                         <td class="px-6 py-4">{{ flight.duration|stringformat:".1f" }} h</td>
                         <td class="px-6 py-4 text-black">${{ flight.base_price|stringformat:".2f" }}</td>
                         <td class="px-6 py-4 text-center">
-                            <button 
-                                class="bg-orange-400 hover:bg-orange-300 text-black font-semibold py-2 px-4 rounded-lg shadow-sm transition"
-                                onclick="openModal()"
-                            >
-                                Reservar
-                            </button>
+                        <button 
+                            class="bg-orange-400 hover:bg-orange-300 text-black font-semibold py-2 px-4 rounded-lg shadow-sm transition"
+                            onclick="openModal({{ flight.id }})"
+                        >
+                            Reservar
+                        </button>
                         </td>
                     </tr>
                     {% endfor %}
@@ -101,8 +101,8 @@
                     Cancelar
                 </button>
                 <button
-                    class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md transition"
-                    onclick="confirmarReserva()"
+                id="confirmBtn"
+                class="bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-md transition"
                 >
                     Confirmar
                 </button>
