@@ -2,12 +2,12 @@
 {% load static %}
 
 {% block content %}
-<div class="min-h-screen py-12 px-4 sm:px-6">
-    <div class="max-w-6xl mx-auto">
+<div class="h-[calc(100vh-96px)] flex flex-col">
+    <div class="flex-1 overflow-hidden flex flex-col">
         <!-- Encabezado -->
-        <div class="text-center mb-12 animate-fade-in">
+        <div class="text-center mb-6 flex-shrink-0">
             {% if user.is_authenticated %}
-                <h1 class="text-4xl font-bold text-orange-700 inline-flex items-center justify-center gap-3 mb-4">
+                <h1 class="text-4xl font-bold text-orange-700 inline-flex items-center justify-center gap-3">
                     <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"/>
                     </svg>
@@ -15,17 +15,17 @@
                 </h1>
             {% endif %}
 
-            <div class="text-center mb-8">
-                <span class="inline-block px-4 py-2 rounded-full bg-orange-100 text-orange-600 text-sm font-semibold mb-4">
+            <div class="text-center mt-4">
+                <span class="inline-block px-4 py-2 rounded-full bg-orange-100 text-orange-600 text-sm font-semibold">
                     Explora nuestros destinos
                 </span>
-                <h2 class="text-4xl font-bold text-gray-900 mb-4">Próximos Vuelos</h2>
-                <div class="h-1 w-32 bg-gradient-to-r from-orange-400 to-orange-500 mx-auto rounded-full"></div>
+                <h2 class="text-4xl font-bold text-gray-900 mt-2">Próximos Vuelos</h2>
+                <div class="h-1 w-32 bg-gradient-to-r from-orange-400 to-orange-500 mx-auto rounded-full mt-4"></div>
             </div>
         </div>
 
         <!-- Buscador -->
-        <div class="max-w-2xl mx-auto mb-12">
+        <div class="max-w-2xl mx-auto mb-6 flex-shrink-0">
             <form method="get" class="relative">
                 <div class="flex gap-4">
                     <div class="relative flex-1">
@@ -54,62 +54,66 @@
             {% endif %}
         </div>
 
-        {% if flights %}
-            <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border border-orange-100 overflow-hidden">
-                <table class="min-w-full divide-y divide-orange-100">
-                    <thead class="bg-gradient-to-r from-orange-400 to-orange-500">
-                    <tr>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Origen</th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Destino</th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Fecha Salida</th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Fecha Llegada</th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Duración</th>
-                        <th class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Precio</th>
-                        <th class="px-6 py-4 text-center text-xs font-medium text-white uppercase tracking-wider">Acción</th>
-                    </tr>
-                    </thead>
-                    <tbody class="bg-white divide-y divide-orange-50">
-                    {% for flight in flights %}
-                    <tr class="hover:bg-orange-50/80 transition-all duration-300 animate-fade-in"
-                        style="animation-delay: {{ forloop.counter0 }}00ms">
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ flight.origin }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ flight.destination }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ flight.departure_date|date:"d/m/Y" }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ flight.arrival_date|date:"d/m/Y" }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ flight.duration|stringformat:".1f" }} h</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-orange-700">${{ flight.base_price|stringformat:".2f" }}</td>
-                        <td class="px-6 py-4 whitespace-nowrap text-center">
-                            <button onclick="openModal({{ flight.id }})"
-                                    class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white text-sm font-medium rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105">
-                                <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                                </svg>
-                                Reservar
-                            </button>
-                        </td>
-                    </tr>
-                    {% endfor %}
-                    </tbody>
-
-                </table>
-            </div>
-        {% else %}
-            <div class="text-center py-16 animate-fade-in">
-                <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-orange-100 mb-6">
-                    <svg class="w-10 h-10 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
-                    </svg>
+        <!-- Contenedor de la tabla con scroll -->
+        <div class="flex-1 overflow-auto">
+            {% if flights %}
+                <div class="bg-white/90 backdrop-blur-sm rounded-3xl shadow-xl border border-orange-100 overflow-hidden">
+                    <table class="min-w-full divide-y divide-orange-100">
+                        <thead class="bg-gradient-to-r from-orange-400 to-orange-500">
+                            <tr>
+                                <th class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Origen</th>
+                                <th class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Destino</th>
+                                <th class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Fecha Salida</th>
+                                <th class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Fecha Llegada</th>
+                                <th class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Duración</th>
+                                <th class="px-6 py-4 text-left text-xs font-medium text-white uppercase tracking-wider">Precio</th>
+                                <th class="px-6 py-4 text-center text-xs font-medium text-white uppercase tracking-wider">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody class="bg-white divide-y divide-orange-50">
+                            {% for flight in flights %}
+                            <tr class="hover:bg-orange-50/80 transition-all duration-300 animate-fade-in"
+                                style="animation-delay: {{ forloop.counter0 }}00ms">
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ flight.origin }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ flight.destination }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ flight.departure_date|date:"d/m/Y" }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ flight.arrival_date|date:"d/m/Y" }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ flight.duration|stringformat:".1f" }} h</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-sm font-bold text-orange-700">${{ flight.base_price|stringformat:".2f" }}</td>
+                                <td class="px-6 py-4 whitespace-nowrap text-center">
+                                    <button onclick="openModal({{ flight.id }})"
+                                            class="inline-flex items-center px-4 py-2 bg-gradient-to-r from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 text-white text-sm font-medium rounded-xl shadow-lg transition-all duration-300 transform hover:scale-105">
+                                        <svg class="w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                                        </svg>
+                                        Reservar
+                                    </button>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
                 </div>
-                <h3 class="text-xl font-semibold text-gray-800 mb-2">No hay vuelos disponibles</h3>
-                <p class="text-gray-600">
-                    {% if query %}
-                        No se encontraron vuelos para "{{ query }}"
-                    {% else %}
-                        No hay vuelos programados en este momento
-                    {% endif %}
-                </p>
-            </div>
-        {% endif %}
+            {% else %}
+                <div class="flex items-center justify-center h-full">
+                    <div class="text-center animate-fade-in">
+                        <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-orange-100 mb-6">
+                            <svg class="w-10 h-10 text-orange-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                            </svg>
+                        </div>
+                        <h3 class="text-xl font-semibold text-gray-800 mb-2">No hay vuelos disponibles</h3>
+                        <p class="text-gray-600">
+                            {% if query %}
+                                No se encontraron vuelos para "{{ query }}"
+                            {% else %}
+                                No hay vuelos programados en este momento
+                            {% endif %}
+                        </p>
+                    </div>
+                </div>
+            {% endif %}
+        </div>
     </div>
 </div>
 
