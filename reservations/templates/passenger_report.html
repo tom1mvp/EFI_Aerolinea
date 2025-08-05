@@ -41,13 +41,13 @@
             </table>
             {% if request.GET.flights %}
               <div class="flex justify-end mt-6">
-                <a 
+                <a
                 href="{% url 'admin:download-passenger-excel' %}?flights={{ request.GET.flights }}"
                 class="inline-flex items-center gap-2 bg-green-500 text-white px-5 py-2 rounded-lg shadow hover:bg-green-600 transition duration-200"
                 >
-                <img 
-                src="{% static '/imgs/icon-excel.svg' %}" 
-                alt="Descargar Excel" 
+                <img
+                src="{% static '/imgs/icon-excel.svg' %}"
+                alt="Descargar Excel"
                 class="w-6 h-auto"
                 />
                 </a>

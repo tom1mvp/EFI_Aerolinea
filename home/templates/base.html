@@ -3,44 +3,99 @@
 <html lang="en">
   <head>
     <title>{% block title %}{% endblock %}</title>
-    <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     {% tailwind_css %}
   </head>
-  <body class="bg-indigo-100" data-authenticated="{{ user.is_authenticated|yesno:'true,false' }}">
-    <header class="bg-orange-500 text-white p-4 shadow-lg ">
-      <div class="container mx-auto flex justify-center items-center">
-        <a href="{% url 'index' %}" class="text-2xl font-bold flex-1 text-center ml-48">Aerolíneas Splinter</a>
+  <body class="bg-gray-50">
+    <!-- Header con título -->
+    <header class="bg-gradient-to-r from-orange-500 to-orange-600 text-white shadow-lg sticky top-0 z-50">
+      <div class="container mx-auto py-4 px-6">
+        <div class="flex items-center justify-center ml-48">
+          <a href="{% url 'index' %}" class="flex items-center gap-3 transform hover:scale-105 transition-transform duration-200">
+            <svg class="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M5 18l6-6-6-6M13 6l6 6-6 6"/>
+            </svg>
+            <span class="text-2xl font-bold tracking-tight ">Splinter Airlines</span>
+          </a>
+        </div>
       </div>
     </header>
-    <div class="flex">
-      <nav class="bg-orange-400 text-white w-44 p-6 shadow-lg h-screen">
-        <ul class="space-y-4">
+
+    <div class="min-h-[calc(100vh-64px)] flex">
+      <!-- Sidebar Navigation -->
+      <nav class="w-64 bg-gradient-to-b from-orange-500 to-orange-400 text-white shadow-xl">
+        <!-- Links de Navegación -->
+        <div class="py-6 flex flex-col justify-between h-full">
+          <div class="px-4 space-y-1">
+            {% if user.is_authenticated %}
+              <a href="{% url 'index' %}" 
+                 class="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 rounded-xl transition-colors duration-200">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>Vuelos</span>
+              </a>
+              <a href="{% url 'my_reservations' %}" 
+                 class="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 rounded-xl transition-colors duration-200">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M16 4v12l-4-2-4 2V4M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                </svg>
+                <span>Mis Reservas</span>
+              </a>
+            {% else %}
+              <a href="{% url 'index' %}" 
+                 class="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 rounded-xl transition-colors duration-200">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <span>Inicio</span>
+              </a>
+              <a href="{% url 'login' %}" 
+                 class="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 rounded-xl transition-colors duration-200">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1"/>
+                </svg>
+                <span>Iniciar sesión</span>
+              </a>
+              <a href="{% url 'register' %}" 
+                 class="flex items-center gap-3 px-4 py-3 text-white/90 hover:bg-white/10 rounded-xl transition-colors duration-200">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"/>
+                </svg>
+                <span>Registrarse</span>
+              </a>
+            {% endif %}
+          </div>
+
+          <!-- Botón de Salir (al final del sidebar) -->
           {% if user.is_authenticated %}
-          <li>
-            <a href="{% url 'index' %}" class="hover:text-gray-200">Vuelos</a>
-          </li>
-          <li>
-            <a href="{% url 'my_reservations' %}" class="hover:text-gray-200">Mis Reservas</a>
-          </li>
-          <li>
-            <a href="{% url 'logout' %}" class="hover:text-gray-200">Salir</a>
-          </li>
-          {% else %}
-          <li>
-            <a href="{% url 'index' %}" class="hover:text-gray-200">Inicio</a>
-          </li>
-          <li>
-            <a href="{% url 'login' %}" class="hover:text-gray-200">Iniciar sesión</a>
-          </li>
-          <li>
-            <a href="{% url 'register' %}" class="hover:text-gray-200">Registrarse</a>
-          </li>
+            <div class="px-4 mt-auto mb-6">
+              <a href="{% url 'logout' %}" 
+                 class="flex items-center gap-3 px-4 py-3 bg-orange-600 hover:bg-orange-700 rounded-xl transition-all duration-200 shadow-lg hover:shadow-xl">
+                <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"/>
+                </svg>
+                <span>Cerrar sesión</span>
+              </a>
+            </div>
           {% endif %}
-        </ul>
+        </div>
       </nav>
-      <main class="flex-1 p-8"> {% block content %}{% endblock %} </main>
+
+      <!-- Main Content -->
+      <div class="flex-1">
+        <main class="p-8">
+          {% block content %}{% endblock %}
+        </main>
+      </div>
     </div>
   </body>
 </html>
