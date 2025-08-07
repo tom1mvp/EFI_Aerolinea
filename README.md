@@ -1,75 +1,56 @@
 ## 🛪 EFI Django 2025: *Aerolíneas Splinter* 🧑‍✈️
 
-**Actualización del día lunes 16/07/2025**:
+Actualización: Sábado 21/06/2025**
 
-Se implementaron las funcionalidades de **inicio de sesión** y **registro**, las cuales incluyen sus respectivos formularios y templates.  
-También se añadieron el template base y la página de inicio del sitio web.
+En esta versión se integró la funcionalidad completa de **gestión de tickets** y se mejoró el sistema de **reservas de vuelos y pasajeros**, estructurado bajo capas de `services` y `repositories`.
 
-A continuación, se detalla el contenido de esta nueva actualización del proyecto.
+---
 
-## ⚙️ Funciones
+## ⚙️ Funcionalidades principales
 
-#### Get all users
+### 🎫 Tickets
 
-| Parameter | Type     | Description                |
-| :-------- | :------- | :------------------------- |
-| `-` | `-` |          **Este endopoint no requiere parametros** |
+- Se implementan operaciones CRUD: **listar**, **ver detalle**, **crear** y **eliminar** tickets.
+- Cada operación utiliza vistas basadas en funciones con sus respectivos templates:
+  - `list.html`
+  - `detail.html`
+  - `create.html`
+  - `delete.html`
 
-#### Get item by id
+### 🛪 Pasajeros y Reservas
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `int`    | *Este endpoint no requiere parámetros.* |
+- Se incorporó el modelo `Passenger`, asociado a un usuario (`User`) con campos como:
+  - Documento y número de teléfono.
+- Se implementaron funcionalidades para:
+  - Crear, editar y eliminar pasajeros.
+  - Crear y cancelar reservas de vuelo.
+- Toda la lógica de negocio se organiza mediante `services` y `repositories` para garantizar un código limpio y mantenible.
 
-#### Post (create user)
+---
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-|`first_name`|    `str`| *Nombre del usuario*. **Requerido.**|
-|`last_name`| `str`| *Apellido del usuario.* **Requerido.**|
-|`email`| `str`| *Email del usuario.* **Requerido.**|
+## ✅  Navegación y estructura del sistema
+
+- Barra de navegación dinámica (navbar) con opciones adaptadas según el estado de autenticación.
+- Vistas públicas y privadas protegidas por login.
+- Formularios validados y responsivos utilizando **Django + Tailwind CSS**.
+- Flujo de autenticación completo (registro, inicio y cierre de sesión).
+
+---
 
 
-#### Put (update user)
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `int`    | *ID del producto que se desea actualizar.*  **Requerido**|
-|`first_name`|    `str`| *Nombre del usuario*. **Requerido.**|
-|`last_name`| `str`| *Apellido del usuario.* **Requerido.**|
-|`email`| `str`| *Email del usuario.* **Requerido.**|
 
-#### Delete (delete user)
+## ✅  Navegación y estructura
 
-| Parameter | Type     | Description                       |
-| :-------- | :------- | :-------------------------------- |
-| `id`      | `int`    | *ID del usuario que se desea eliminar.*  **Requerido.** |
+El sistema incluye:
 
-## 📦 Contenido
+- Barra de navegación dinámica.
+- Vistas públicas y protegidas.
+- Flujo de autenticación seguro.
+- Formularios claros y consistentes.
 
-Esta nueva versión incorpora tanto nuevas funcionalidades como mejoras en la estructura visual del sistema mediante el uso de **templates personalizados**.  
-Se han desarrollado vistas clave como:
+---
 
-- **`base.html`**: Plantilla base que estructura la interfaz general del sitio.
-- **`login.html`** y **`register.html`**: Formularios de autenticación.
-- Otras vistas específicas que se integrarán progresivamente en versiones futuras.
-
-Todos los templates están construidos utilizando **[django-tailwind](https://django-tailwind.readthedocs.io/)**, un framework que permite integrar de forma eficiente las utilidades y estilos de **Tailwind CSS** dentro del entorno de Django. Esto nos permite desarrollar interfaces modernas, responsivas y altamente personalizables, manteniendo la coherencia visual en toda la aplicación.
-
-## 🧩 Estructura y navegación
-
-La interfaz del formulario de inicio de sesión incluye un **navbar** funcional, el cual contiene:
-
-- Accesos directos a las páginas de **Inicio de sesión** y **Registro**.
-- Un botón de **cerrar sesión** (visible para usuarios autenticados).
-- En futuras versiones, este menú se expandirá con enlaces a funciones internas del sistema.
-
-## 🔐 Seguridad y flujo de usuarios
-
-En futuras versiones se implementará una restricción de acceso:  
-> Los usuarios podrán navegar por ciertas secciones de la aplicación, pero **no podrán comprar boletos de avión sin estar autenticados**.
-
-Esta decisión responde a prácticas recomendadas de seguridad y control de acceso dentro de sistemas de gestión de usuarios.
 
 ## ✍️ Autores 
 
