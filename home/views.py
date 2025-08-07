@@ -98,3 +98,4 @@ class RegisterView(View):
         messages.error(request, "Por favor corregí los errores en el formulario.")
         return render(request, 'accounts/register.html', {"form": form})
 
+

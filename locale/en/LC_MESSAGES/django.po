@@ -1,0 +1,269 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-06 21:52-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+#: home/templates/accounts/login.html:4 home/templates/accounts/login.html:9
+msgid "Inicio de Sesión "
+msgstr ""
+
+#: home/templates/accounts/login.html:26 home/templates/base.html:80
+msgid "Iniciar sesión"
+msgstr ""
+
+#: home/templates/accounts/login.html:31
+msgid "¿No tienes cuenta?"
+msgstr ""
+
+#: home/templates/accounts/login.html:33
+msgid "Regístrate aquí"
+msgstr ""
+
+#: home/templates/accounts/register.html:4
+#: home/templates/accounts/register.html:9
+msgid "Registro"
+msgstr ""
+
+#: home/templates/accounts/register.html:41
+msgid "Registrarme"
+msgstr ""
+
+#: home/templates/base.html:25
+msgid "Aeorlineas Splinter"
+msgstr ""
+
+#: home/templates/base.html:55
+msgid "Vuelos"
+msgstr ""
+
+#: home/templates/base.html:63
+#: reservations/templates/reservations/my_reservations.html:19
+msgid "Mis Reservas"
+msgstr ""
+
+#: home/templates/base.html:72 home/templates/index.html:8
+msgid "Inicio"
+msgstr ""
+
+#: home/templates/base.html:88
+msgid "Registrarse"
+msgstr ""
+
+#: home/templates/base.html:102
+msgid "Cerrar sesión"
+msgstr ""
+
+#: home/templates/index.html:22
+msgid "Bienvenido"
+msgstr ""
+
+#: home/templates/index.html:29
+msgid "Explora nuestros destinos"
+msgstr ""
+
+#: home/templates/index.html:31
+msgid "Próximos Vuelos"
+msgstr ""
+
+#: home/templates/index.html:54
+msgid "Limpiar filtros"
+msgstr ""
+
+#: home/templates/index.html:61
+msgid "Mostrando resultados para: "
+msgstr ""
+
+#: home/templates/index.html:73
+#: reservations/templates/reservations/my_reservations.html:43
+#: reservations/templates/reservations/select_seat.html:35
+msgid "Origen"
+msgstr ""
+
+#: home/templates/index.html:74
+#: reservations/templates/reservations/my_reservations.html:56
+#: reservations/templates/reservations/select_seat.html:59
+msgid "Destino"
+msgstr ""
+
+#: home/templates/index.html:75
+msgid "Fecha de Salida"
+msgstr ""
+
+#: home/templates/index.html:76
+msgid "Fecha de Llegada"
+msgstr ""
+
+#: home/templates/index.html:77
+msgid "Duración"
+msgstr ""
+
+#: home/templates/index.html:78
+msgid "Precio"
+msgstr ""
+
+#: home/templates/index.html:79
+msgid "Acción"
+msgstr ""
+
+#: home/templates/index.html:98
+msgid "Reservar"
+msgstr ""
+
+#: home/templates/index.html:114
+msgid "No hay vuelos disponibles"
+msgstr ""
+
+#: home/templates/index.html:117
+msgid "No se encontraron vuelos para"
+msgstr ""
+
+#: home/templates/index.html:119
+msgid "No hay vuelos programados en este momento"
+msgstr ""
+
+#: home/templates/index.html:146
+#: reservations/templates/reservations/select_seat.html:234
+msgid "Confirmar reserva"
+msgstr ""
+
+#: home/templates/index.html:147
+msgid "¿Deseas continuar con la selección de asiento?"
+msgstr ""
+
+#: home/templates/index.html:153
+#: reservations/templates/reservations/select_seat.html:246
+msgid "Cancelar"
+msgstr ""
+
+#: home/templates/index.html:157
+msgid "Continuar"
+msgstr ""
+
+#: reservations/templates/passenger_report.html:8
+msgid "Reportes de pasajeros"
+msgstr ""
+
+#: reservations/templates/passenger_report.html:14
+msgid "Reporte de pasajeros"
+msgstr ""
+
+#: reservations/templates/passenger_report.html:20
+msgid "Vuelo"
+msgstr ""
+
+#: reservations/templates/passenger_report.html:30
+msgid "Pasajero"
+msgstr ""
+
+#: reservations/templates/passenger_report.html:31
+msgid "Email"
+msgstr ""
+
+#: reservations/templates/passenger_report.html:32
+#: reservations/templates/reservations/select_seat.html:96
+msgid "Documento"
+msgstr ""
+
+#: reservations/templates/passenger_report.html:33
+#: reservations/templates/reservations/select_seat.html:106
+msgid "Teléfono"
+msgstr ""
+
+#: reservations/templates/passenger_report.html:34
+msgid "Asiento"
+msgstr ""
+
+#: reservations/templates/passenger_report.html:66
+msgid "No hay pasajeros para este vuelo."
+msgstr ""
+
+#: reservations/templates/passenger_report.html:74
+msgid "← Volver a reservas"
+msgstr ""
+
+#: reservations/templates/reservations/my_reservations.html:6
+msgid "Mis Reservaciones"
+msgstr ""
+
+#: reservations/templates/reservations/my_reservations.html:31
+msgid "Codigo: "
+msgstr ""
+
+#: reservations/templates/reservations/my_reservations.html:96
+msgid "No tienes reservas todavía"
+msgstr ""
+
+#: reservations/templates/reservations/my_reservations.html:97
+msgid "¡Explora nuestros vuelos disponibles y realiza tu primera reserva!"
+msgstr ""
+
+#: reservations/templates/reservations/my_reservations.html:102
+msgid "Explorar vuelos"
+msgstr ""
+
+#: reservations/templates/reservations/select_seat.html:6
+msgid "Selección del asiento"
+msgstr ""
+
+#: reservations/templates/reservations/select_seat.html:23
+msgid "Reserva de vuelo"
+msgstr ""
+
+#: reservations/templates/reservations/select_seat.html:26
+msgid "Selección de Asiento"
+msgstr ""
+
+#: reservations/templates/reservations/select_seat.html:46
+msgid "Duración: "
+msgstr ""
+
+#: reservations/templates/reservations/select_seat.html:72
+msgid "Precio: "
+msgstr ""
+
+#: reservations/templates/reservations/select_seat.html:80
+msgid "Asientos disponibles: "
+msgstr ""
+
+#: reservations/templates/reservations/select_seat.html:119
+msgid "Selecciona tu asiento"
+msgstr ""
+
+#: reservations/templates/reservations/select_seat.html:126
+msgid "Libre"
+msgstr ""
+
+#: reservations/templates/reservations/select_seat.html:132
+msgid "Reservado"
+msgstr ""
+
+#: reservations/templates/reservations/select_seat.html:138
+msgid "Ocupado"
+msgstr ""
+
+#: reservations/templates/reservations/select_seat.html:199
+msgid "Confirmar Selección"
+msgstr ""
+
+#: reservations/templates/reservations/select_seat.html:236
+msgid "¿Estás seguro de que deseas confirmar esta reserva?"
+msgstr ""
+
+#: reservations/templates/reservations/select_seat.html:253
+msgid "Confirmar"
+msgstr ""
