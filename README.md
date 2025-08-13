@@ -2,7 +2,7 @@
 
 Actualización: Lunes 21/07/2025**
 
-En esta versión se integró la funcionalidad de **reportes** msotrando un reporte de los pasajeros por el vuelo.
+En esta versión se integró la funcionalidad de **reportes** mostrando un reporte de los pasajeros por el vuelo.
 
 ---
 
@@ -11,7 +11,7 @@ En esta versión se integró la funcionalidad de **reportes** msotrando un repor
 ### ✅ Reportes
 
 - Se implementa la accion(admin) de reportes de pasajeros por vuelos usando un excel.
-- Se utilizo la libreria openpyxl
+- Implementado utilizando la librería [`openpyxl`](https://openpyxl.readthedocs.io/en/stable/).
 
 ## ✅  Navegación y estructura del sistema
 
