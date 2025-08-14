@@ -1,4 +1,3 @@
----
 
 ## 🛪 EFI Django 2025: *Aerolíneas Splinter* 🧑‍✈️
 
