@@ -154,16 +154,81 @@ class ReservationServices:
             date=str(getattr(getattr(reservation, 'flight', None), 'departure_date', '')),
         )
         html = f"""
-        <h2>{subject}</h2>
-        <p>{_('Hola')} {(getattr(user, 'first_name', '') or getattr(user, 'username', ''))},</p>
-        <p>{_('Tu reserva fue confirmada.')}</p>
-        <ul>
-          <li><strong>{_('Código')}:</strong> {getattr(reservation, 'reservation_code', '')}</li>
-          <li><strong>{_('Vuelo')}:</strong> {getattr(reservation, 'flight', '')}</li>
-          <li><strong>{_('Asiento')}:</strong> {getattr(reservation, 'seat', '')}</li>
-          <li><strong>{_('Fecha')}:</strong> {getattr(getattr(reservation, 'flight', None), 'departure_date', '')}</li>
-        </ul>
-        <p>{_('Gracias por elegirnos.')}</p>
+        <!doctype html>
+        <html lang="es">
+          <head>
+            <meta charset="utf-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>{subject}</title>
+          </head>
+          <body style="margin:0;padding:0;background-color:#f6f7fb;">
+            <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f6f7fb;">
+              <tr>
+                <td align="center" style="padding:24px;">
+                  <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:680px;background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid #ffedd5;">
+                    <tr>
+                      <td style="background:linear-gradient(135deg,#fb923c,#f97316);padding:28px 24px;color:#ffffff;">
+                        <h1 style="margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:20px;letter-spacing:.3px;">Aerolineas Splinter</h1>
+                        <p style="margin:8px 0 0 0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:13px;opacity:.95;">{_('Confirmación de reserva')}</p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:24px 24px 8px 24px;">
+                        <h2 style="margin:0 0 6px 0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-weight:700;font-size:18px;color:#7c2d12;">{subject}</h2>
+                        <p style="margin:0 0 12px 0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.7;color:#4b5563;">
+                          {_('Hola')} {(getattr(user, 'first_name', '') or getattr(user, 'username', ''))},
+                        </p>
+                        <p style="margin:0 0 18px 0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:15px;line-height:1.7;color:#4b5563;">
+                          {_('Tu reserva fue confirmada.')}
+                        </p>
+                        <table role="presentation" cellpadding="0" cellspacing="0" width="100%" style="border-collapse:separate;border-spacing:0 10px;">
+                          <tr>
+                            <td style="background:#fff7ed;border:1px solid #ffedd5;border-radius:12px;padding:14px 16px;">
+                              <table role="presentation" width="100%%" cellpadding="0" cellspacing="0">
+                                <tr>
+                                  <td style="font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:13px;color:#9a3412;width:140px;">{_('Código')}:</td>
+                                  <td style="font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:15px;color:#7c2d12;font-weight:700;">{getattr(reservation, 'reservation_code', '')}</td>
+                                </tr>
+                                <tr>
+                                  <td style="font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:13px;color:#9a3412;width:140px;">{_('Vuelo')}:</td>
+                                  <td style="font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:15px;color:#7c2d12;font-weight:700;">{getattr(reservation, 'flight', '')}</td>
+                                </tr>
+                                <tr>
+                                  <td style="font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:13px;color:#9a3412;width:140px;">{_('Asiento')}:</td>
+                                  <td style="font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:15px;color:#7c2d12;font-weight:700;">{getattr(reservation, 'seat', '')}</td>
+                                </tr>
+                                <tr>
+                                  <td style="font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:13px;color:#9a3412;width:140px;">{_('Fecha')}:</td>
+                                  <td style="font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:15px;color:#7c2d12;font-weight:700;">{getattr(getattr(reservation, 'flight', None), 'departure_date', '')}</td>
+                                </tr>
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                        <p style="margin:18px 0 0 0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:14px;line-height:1.7;color:#4b5563;">
+                          {_('Gracias por elegirnos.')}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="padding:0 24px 24px 24px;">
+                        <div style="height:1px;background:#ffedd5;margin:8px 0 16px 0;"></div>
+                        <p style="margin:0;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:12px;line-height:1.6;color:#9a3412;">
+                          {_('Este mensaje fue enviado automáticamente. Por favor no respondas a este correo.')}
+                        </p>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td style="background:#fff7ed;padding:16px 24px;color:#9a3412;font-family:Inter,Segoe UI,Roboto,Helvetica,Arial,sans-serif;font-size:12px;">
+                        © {__import__('datetime').datetime.now().year} Aerolineas Splinter. {_('Todos los derechos reservados.') }
+                      </td>
+                    </tr>
+                  </table>
+                </td>
+              </tr>
+            </table>
+          </body>
+        </html>
         """.strip()
 
         return recipient, subject, plain, html
