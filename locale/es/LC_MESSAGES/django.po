@@ -1,0 +1,297 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-08-06 21:52-0300\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=3; plural=n == 1 ? 0 : n != 0 && n % 1000000 == 0 ? "
+"1 : 2;\n"
+
+#: home/templates/accounts/login.html:4 home/templates/accounts/login.html:9
+#, fuzzy
+#| msgid "Iniciar sesión"
+msgid "Inicio de Sesión "
+msgstr "Log in"
+
+#: home/templates/accounts/login.html:26 home/templates/base.html:80
+msgid "Iniciar sesión"
+msgstr "Log in"
+
+#: home/templates/accounts/login.html:31
+msgid "¿No tienes cuenta?"
+msgstr "Don't have an account?"
+
+#: home/templates/accounts/login.html:33
+msgid "Regístrate aquí"
+msgstr "Register here"
+
+#: home/templates/accounts/register.html:4
+#: home/templates/accounts/register.html:9
+#, fuzzy
+#| msgid "Registrarse"
+msgid "Registro"
+msgstr "Sign up"
+
+#: home/templates/accounts/register.html:41
+#, fuzzy
+#| msgid "Registrarse"
+msgid "Registrarme"
+msgstr "Sign up"
+
+#: home/templates/base.html:25
+msgid "Aeorlineas Splinter"
+msgstr "Splinter Airlines"
+
+#: home/templates/base.html:55
+msgid "Vuelos"
+msgstr "Flights"
+
+#: home/templates/base.html:63
+#: reservations/templates/reservations/my_reservations.html:19
+msgid "Mis Reservas"
+msgstr "My Reservations"
+
+#: home/templates/base.html:72 home/templates/index.html:8
+msgid "Inicio"
+msgstr "Home"
+
+#: home/templates/base.html:88
+msgid "Registrarse"
+msgstr "Sign up"
+
+#: home/templates/base.html:102
+msgid "Cerrar sesión"
+msgstr "Log out"
+
+#: home/templates/index.html:22
+msgid "Bienvenido"
+msgstr "Welcome"
+
+#: home/templates/index.html:29
+msgid "Explora nuestros destinos"
+msgstr "Explore our destinations"
+
+#: home/templates/index.html:31
+msgid "Próximos Vuelos"
+msgstr "Upcoming Flights"
+
+#: home/templates/index.html:54
+msgid "Limpiar filtros"
+msgstr "Clean filters"
+
+#: home/templates/index.html:61
+msgid "Mostrando resultados para: "
+msgstr "Showing results for: "
+
+#: home/templates/index.html:73
+#: reservations/templates/reservations/my_reservations.html:43
+#: reservations/templates/reservations/select_seat.html:35
+msgid "Origen"
+msgstr "Origin"
+
+#: home/templates/index.html:74
+#: reservations/templates/reservations/my_reservations.html:56
+#: reservations/templates/reservations/select_seat.html:59
+msgid "Destino"
+msgstr "Destination"
+
+#: home/templates/index.html:75
+msgid "Fecha de Salida"
+msgstr "Departure Date"
+
+#: home/templates/index.html:76
+msgid "Fecha de Llegada"
+msgstr "Arrival Date"
+
+#: home/templates/index.html:77
+msgid "Duración"
+msgstr "Duration"
+
+#: home/templates/index.html:78
+msgid "Precio"
+msgstr "Price"
+
+#: home/templates/index.html:79
+msgid "Acción"
+msgstr "Action"
+
+#: home/templates/index.html:98
+#, fuzzy
+#| msgid "Mis Reservas"
+msgid "Reservar"
+msgstr "My Reservations"
+
+#: home/templates/index.html:114
+#, fuzzy
+#| msgid "Asientos disponibles: "
+msgid "No hay vuelos disponibles"
+msgstr "Seats available:"
+
+#: home/templates/index.html:117
+msgid "No se encontraron vuelos para"
+msgstr "No flights found for"
+
+#: home/templates/index.html:119
+msgid "No hay vuelos programados en este momento"
+msgstr "There are no flights scheduled at this time."
+
+#: home/templates/index.html:146
+#: reservations/templates/reservations/select_seat.html:234
+msgid "Confirmar reserva"
+msgstr "Confirm reservation"
+
+#: home/templates/index.html:147
+msgid "¿Deseas continuar con la selección de asiento?"
+msgstr "Would you like to continue with seat selection?"
+
+#: home/templates/index.html:153
+#: reservations/templates/reservations/select_seat.html:246
+msgid "Cancelar"
+msgstr "Cancel"
+
+#: home/templates/index.html:157
+msgid "Continuar"
+msgstr "Continue"
+
+#: reservations/templates/passenger_report.html:8
+msgid "Reportes de pasajeros"
+msgstr "Passenger reports"
+
+#: reservations/templates/passenger_report.html:14
+msgid "Reporte de pasajeros"
+msgstr "Passenger report"
+
+#: reservations/templates/passenger_report.html:20
+#, fuzzy
+#| msgid "Vuelos"
+msgid "Vuelo"
+msgstr "Flights"
+
+#: reservations/templates/passenger_report.html:30
+msgid "Pasajero"
+msgstr "Passenger"
+
+#: reservations/templates/passenger_report.html:31
+msgid "Email"
+msgstr "Email"
+
+#: reservations/templates/passenger_report.html:32
+#: reservations/templates/reservations/select_seat.html:96
+msgid "Documento"
+msgstr "Document"
+
+#: reservations/templates/passenger_report.html:33
+#: reservations/templates/reservations/select_seat.html:106
+msgid "Teléfono"
+msgstr "Phone"
+
+#: reservations/templates/passenger_report.html:34
+msgid "Asiento"
+msgstr "Seat"
+
+#: reservations/templates/passenger_report.html:66
+msgid "No hay pasajeros para este vuelo."
+msgstr "There are no passengers for this flight."
+
+#: reservations/templates/passenger_report.html:74
+msgid "← Volver a reservas"
+msgstr "← Back to booking"
+
+#: reservations/templates/reservations/my_reservations.html:6
+#, fuzzy
+#| msgid "Mis Reservas"
+msgid "Mis Reservaciones"
+msgstr "My Reservations"
+
+#: reservations/templates/reservations/my_reservations.html:31
+msgid "Codigo: "
+msgstr "Code: "
+
+#: reservations/templates/reservations/my_reservations.html:96
+msgid "No tienes reservas todavía"
+msgstr "You don't have any reservations yet."
+
+#: reservations/templates/reservations/my_reservations.html:97
+msgid "¡Explora nuestros vuelos disponibles y realiza tu primera reserva!"
+msgstr "¡Explore our available flights and make your first booking!"
+
+#: reservations/templates/reservations/my_reservations.html:102
+msgid "Explorar vuelos"
+msgstr "Explore flights"
+
+#: reservations/templates/reservations/select_seat.html:6
+msgid "Selección del asiento"
+msgstr "Seat selection"
+
+#: reservations/templates/reservations/select_seat.html:23
+msgid "Reserva de vuelo"
+msgstr "Flight reservation"
+
+#: reservations/templates/reservations/select_seat.html:26
+msgid "Selección de Asiento"
+msgstr "Seat Selection"
+
+#: reservations/templates/reservations/select_seat.html:46
+#, fuzzy
+#| msgid "Duración"
+msgid "Duración: "
+msgstr "Duration"
+
+#: reservations/templates/reservations/select_seat.html:72
+#, fuzzy
+#| msgid "Precio"
+msgid "Precio: "
+msgstr "Price"
+
+#: reservations/templates/reservations/select_seat.html:80
+msgid "Asientos disponibles: "
+msgstr "Seats available:"
+
+#: reservations/templates/reservations/select_seat.html:119
+msgid "Selecciona tu asiento"
+msgstr "Select your seat"
+
+#: reservations/templates/reservations/select_seat.html:126
+msgid "Libre"
+msgstr "Free"
+
+#: reservations/templates/reservations/select_seat.html:132
+#, fuzzy
+#| msgid "Mis Reservas"
+msgid "Reservado"
+msgstr "Reserved"
+
+#: reservations/templates/reservations/select_seat.html:138
+msgid "Ocupado"
+msgstr "Busy"
+
+#: reservations/templates/reservations/select_seat.html:199
+msgid "Confirmar Selección"
+msgstr "Confirm Selection"
+
+#: reservations/templates/reservations/select_seat.html:236
+msgid "¿Estás seguro de que deseas confirmar esta reserva?"
+msgstr "Are you sure you want to confirm this reservation?"
+
+#: reservations/templates/reservations/select_seat.html:253
+msgid "Confirmar"
+msgstr "Confirm"
+
+#, python-format
+#~ msgid ""
+#~ "\n"
+#~ "                        ¡Bienvenido, %(user.username)s!\n"
+#~ "                    "
+#~ msgstr "¡Welcome, "

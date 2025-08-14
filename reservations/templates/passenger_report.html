@@ -2,29 +2,36 @@
 
 {% load static %}
 
+{% load i18n %}
+
+{% block title %} 
+  {% trans "Reportes de pasajeros" %}
+{% endblock %} 
 
 {% block content %}
   <div class="max-w-5xl mx-auto px-4 py-6">
     <h1 class="text-3xl font-bold text-orange-700 mb-10 border-b pb-2 border-orange-300">
-      Reporte de Pasajeros
+      {% trans "Reporte de pasajeros" %}
     </h1>
 
     {% for flight_id, passengers in report_data.items %}
       <div class="bg-amber-50 border border-orange-200 shadow-lg rounded-2xl p-6 mb-8 transition-colors duration-300">
-        <h2 class="text-xl text-orange-800 font-semibold mb-4 flex items-center gap-2">
-          Vuelo <span class="text-sm text-orange-600">(ID: {{ flight_id }})</span>
-        </h2>
+          <h2 class="text-xl text-orange-800 font-semibold mb-4 flex items-center gap-2">
+            {% trans "Vuelo" %} <span class="text-sm text-orange-600">(ID: {{ flight_id }})</span>
+          </h2>
+        {% endblocktrans %}
+        
 
         {% if passengers %}
           <div class="overflow-x-auto rounded-lg">
             <table class="min-w-full divide-y divide-orange-200 text-sm">
               <thead class="bg-orange-100 text-orange-900">
                 <tr>
-                  <th class="px-4 py-2 text-left font-semibold">Pasajero</th>
-                  <th class="px-4 py-2 text-left font-semibold">Email</th>
-                  <th class="px-4 py-2 text-left font-semibold">Documento</th>
-                  <th class="px-4 py-2 text-left font-semibold">Teléfono</th>
-                  <th class="px-4 py-2 text-left font-semibold">Asiento</th>
+                  <th class="px-4 py-2 text-left font-semibold">{% trans "Pasajero" %}</th>
+                  <th class="px-4 py-2 text-left font-semibold">{% trans "Email" %}</th>
+                  <th class="px-4 py-2 text-left font-semibold">{% trans "Documento" %}</th>
+                  <th class="px-4 py-2 text-left font-semibold">{% trans "Teléfono" %}</th>
+                  <th class="px-4 py-2 text-left font-semibold">{% trans "Asiento" %}</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-orange-100">
@@ -56,7 +63,7 @@
           </div>
         {% else %}
           <p class="text-sm text-gray-600 mt-2">
-            No hay pasajeros para este vuelo.
+            {% trans "No hay pasajeros para este vuelo." %}
           </p>
         {% endif %}
       </div>
@@ -64,7 +71,7 @@
 
     <div class="mt-6">
       <a href=".." class="text-orange-600 hover:text-orange-800 hover:underline font-medium">
-        ← Volver a reservas
+        {% trans "← Volver a reservas" %}
       </a>
     </div>
   </div>
