@@ -6,7 +6,6 @@
   {% trans "Selección del asiento" %}
 {% endblock %} 
 
-
 {% block content %}
 <div class="min-h-screen py-12 px-4 sm:px-6">
     <div class="max-w-4xl mx-auto">
@@ -87,6 +86,9 @@
 
         <!-- Contenedor principal -->
         <div class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 animate-fade-up">
+            <!-- Banner local para validaciones del cliente -->
+            <div id="seatFormBanner" class="hidden mb-6 rounded-lg border border-amber-200 bg-amber-50 text-amber-800 p-4 text-sm"></div>
+
             <form id="seatForm" method="post" class="space-y-8">
                 {% csrf_token %}
 
@@ -259,20 +261,58 @@
     </div>
 </div>
 
+<style>
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.animate-fade-down {
+    animation: fadeDown 0.6s ease-out forwards;
+}
+
+.animate-fade-up {
+    animation: fadeUp 0.6s ease-out forwards;
+}
+
+.animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+}
+</style>
+{% endblock %}
+
+{% block scripts %}
 <script>
+function showFormBanner(message) {
+    const banner = document.getElementById('seatFormBanner');
+    banner.textContent = message;
+    banner.classList.remove('hidden');
+    setTimeout(() => banner.classList.add('hidden'), 4000);
+}
+
 function validateForm() {
     const form = document.getElementById('seatForm');
     const selectedSeat = form.querySelector('input[name="seat_id"]:checked');
-    const document = form.querySelector('input[name="document"]').value.trim();
+    const documentValue = form.querySelector('input[name="document"]').value.trim();
     const phoneNumber = form.querySelector('input[name="phone_number"]').value.trim();
 
     if (!selectedSeat) {
-        alert('Por favor selecciona un asiento antes de continuar.');
+        showFormBanner('Por favor selecciona un asiento antes de continuar.');
         return false;
     }
 
-    if (!document || !phoneNumber) {
-        alert('Por favor completa todos los campos requeridos.');
+    if (!documentValue || !phoneNumber) {
+        showFormBanner('Por favor completa todos los campos requeridos.');
         return false;
     }
 
@@ -305,33 +345,4 @@ document.addEventListener('keydown', function(e) {
     }
 });
 </script>
-
-<style>
-@keyframes fadeDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeUp {
-    from { opacity: 0; transform: translateY(20px); }
-    to { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-}
-
-.animate-fade-down {
-    animation: fadeDown 0.6s ease-out forwards;
-}
-
-.animate-fade-up {
-    animation: fadeUp 0.6s ease-out forwards;
-}
-
-.animate-fade-in {
-    animation: fadeIn 0.6s ease-out forwards;
-}
-</style>
 {% endblock %}

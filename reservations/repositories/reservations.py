@@ -11,12 +11,11 @@ class ReservationRepository:
 
     @staticmethod
     def get_by_id(reservation_id):
-        return Reservation.objects.filter(id=reservation_id).first()
+        return Reservation.objects.filter(id=reservation_id).select_related('passenger__user', 'flight', 'seat').first()
     
     @staticmethod
     def get_by_flight_id(flight_id):
-     return Reservation.objects.filter(flight_id=flight_id).select_related('passenger__user', 'seat')
-
+        return Reservation.objects.filter(flight_id=flight_id).select_related('passenger__user', 'seat')
 
     @staticmethod
     def create_reservation(
@@ -37,7 +36,6 @@ class ReservationRepository:
             price=price,
             reservation_code=reservation_code
         )
-    
         return new_reservation
 
     @staticmethod
@@ -61,14 +59,11 @@ class ReservationRepository:
         reservation.save()
         return reservation
 
-
     @staticmethod
     def delete_reservation(reservation_id):
         reservation = Reservation.objects.filter(id=reservation_id).first()
-
         if not reservation:
             raise ValueError("No se encontró la reservación")
-
         reservation.delete()
         return True
 
