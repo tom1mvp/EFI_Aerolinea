@@ -1,5 +1,5 @@
 import openpyxl
-
+import mailtrap as mt
 
 from django.contrib.auth.decorators import login_required
 
@@ -8,6 +8,23 @@ from django.contrib import messages
 from django.http import HttpResponse
 from reservations.models import Reservation
 from reservations.services.reservations import ReservationServices
+from django.conf import settings
+
+client = mt.MailtrapClient(token=settings.MAILTRAP_API_KEY)
+
+def send_example_email(request):
+    try:
+        mail = mt.Mail(
+            sender=mt.Address(email="from@your_mailtrap_domain", name="Mailtrap Test"),
+            to=[mt.Address(email="your@email.com")],
+            subject="You are awesome!",
+            text="Congrats for sending test email with Mailtrap!",
+        )
+        client.send(mail)
+
+        return HttpResponse(f'Email sent successfully!')
+    except Exception as e:
+        return HttpResponse(f'Failed to send email: {str(e)}')
 
 @login_required
 def select_seat(request, flight_id):

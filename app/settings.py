@@ -103,8 +103,7 @@ EMAIL_USE_TLS = env.bool('EMAIL_USE_TLS', default=True)
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 
 # Token
-MAILTRAP_TOKEN = env('MAILTRAP_TOKEN')
-
+MAILTRAP_API_KEY = env('MAILTRAP_TOKEN')
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases

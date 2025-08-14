@@ -265,3 +265,7 @@ class ReservationServices:
             "message": "¡Reserva exitosa! Recibirás un correo de confirmación.",
             "level": messages.SUCCESS
         }
+
+    @classmethod
+    def get_all_passengers(cls):
+        pass
