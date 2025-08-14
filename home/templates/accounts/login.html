@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block title %} 
+  Inicio de Sesión
+{% endblock %} 
+
+{% block content %}
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md">
+  <h2 class="text-2xl font-bold text-orange-500 mb-4">{% trans "Inicio de Sesión " %}</h2>
+  <form method="post">
+    {% csrf_token %}
+    
+    {{ form.non_field_errors }}
+
+    <div class="mb-4">
+      <label for="username" class="block text-sm font-medium text-gray-700">{{form.username.label_tag}}</label>
+        {{ form.username }}
+        {{ form.username.errors }}
+    </div>
+    <div class="mb-4">
+      <label for="password" class="block text-sm font-medium text-gray-700">{{form.password.label_tag}}</label>
+       {{ form.password }}
+       {{ form.password.errors }}
+    </div>
+    <button type="submit" class="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600"
+      >{% trans "Iniciar sesión" %}</button
+    >
+  </form>
+  
+  <p class="mt-4 text-sm text-gray-700">
+    {% trans "¿No tienes cuenta?" %}
+    <a href="{% url 'register' %}" class="text-orange-500 hover:underline">
+      {% trans "Regístrate aquí" %}
+    </a>
+  </p>
+  
+  
+</div>
+{% endblock %}
