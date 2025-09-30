@@ -1,0 +1,24 @@
+# Archivos de entorno
+.env
+*.env
+
+# Carpetas de entornos virtuales
+env/
+venv/
+.venv/
+
+# Archivos de configuración de Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Archivos de logs
+*.log
+
+# Archivos de bases de datos locales
+*.sqlite3
+
+# Configuración de IDEs (opcional, para no subir lo personal)
+.vscode/
+.idea/
