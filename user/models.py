@@ -8,7 +8,7 @@ class User(models.Model):
     phone = models.CharField(max_length=10, null=False)
     name = models.CharField(max_length=120, null=False)
     document = models.CharField(max_length=9, null=False)
-    is_active = models.BooleanField(null=False, default=False)
+    is_active = models.BooleanField(default=False)
     
     def __str__(self):
         return f'Nombre: {self.name} || Usuario: {self.username} || Mail: {self.mail}'

@@ -5,7 +5,7 @@ from rest_framework.exceptions import ValidationError
 
 
 from user.repositories.user import UserRepository
-from user.serializers import UserListSerializer
+from user.serializers import UserSerializer
 
 
 class UserService:
@@ -28,7 +28,7 @@ class UserService:
         data['password'] = make_password(data.get('password'))
         
         # Hash
-        serializer = UserListSerializer(data=data)
+        serializer = UserSerializer.UserListSeriaizer(data=data)
         
         if serializer.is_valid():
             user = serializer.save()
@@ -49,8 +49,9 @@ class UserService:
             raise ValidationError({'error': 'Contraseña incorrecta'})
         
         return {
-            'id': user.id,
+            'pk': user.id,
             'username': user.username,
+            'mail': user.mail
         }
         
     # Register
@@ -63,37 +64,47 @@ class UserService:
         hashed_password = make_password(data['password'])
         
         user = UserRepository.create_user(
-            fullname=data['fullname'],
-            username=data['username'],
+            username=data['username'], 
             password=hashed_password,
-            email=data['email'],
-            phone=data['phone']
+            mail=data['mail'], 
+            birth_day=data['birth_day'], 
+            phone=data['phone'], 
+            name=data['name'], 
+            document=data['document']
 		)
         
         
-        return user
+        # Create serializer after return
+        serializer = UserSerializer.UserListSeriaizer(user)
+        
+        return serializer.data
     
     # Method PUT (update)
+    @staticmethod
     def update_user(data, user_id):
         required_fields = ['username', 'password', 'mail', 'birth_day', 'phone', 'name', 'document']
-        
+    
         for field in required_fields:
             if field not in data:
                 raise ValidationError({field: f'El campo {field} es obligatorio'})
-            
+        
+        hashed_password = make_password(data['password'])
+        
         user = UserRepository.update_user(
             user_id=user_id,
             username=data['username'], 
-            password=data['password'], 
+            password=hashed_password,
             mail=data['mail'], 
             birth_day=data['birth_day'], 
             phone=data['phone'], 
             name=data['name'], 
             document=data['document']
         )
-        
+    
         return user
+
     
     # Method DELETE (soft)
+    @staticmethod
     def delete_user(user_id):
         return UserRepository.delete_user(user_id)

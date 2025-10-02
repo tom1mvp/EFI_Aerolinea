@@ -7,7 +7,7 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 
 from user.services.user import UserService
-from .serializers import UsersListSerializer
+from .serializers import UserSerializer
 
 
 # Method GET (all)
@@ -24,7 +24,7 @@ class UserListView(APIView):
                 status=status.HTTP_204_NO_CONTENT
             )
         
-        serializer = UsersListSerializer(users, many=True)
+        serializer = UserSerializer.UserListSeriaizer(users, many=True)
         
         return Response(
             {'data': serializer.data},
@@ -73,28 +73,28 @@ class LoginView(APIView):
 
 # Method UPDATE
 class UpdateView(APIView):
-    
     permission_classes = [IsAuthenticated]
     
     def put(self, request, *args, **kwargs):
         data = request.data
-        user_id = kwargs.get('user_id')
+        user_id = int(kwargs.get('pk'))
         
-        data['user_id'] = user_id
-        
-        if not data or 'user_id' not in data:
+        if not data:
             return Response(
-                {'message': 'Falta elementos escenciales: user_id'},
-                status=status.HTTP_204_NO_CONTENT
+                {'message': 'Faltan elementos esenciales'},
+                status=status.HTTP_400_BAD_REQUEST
             )
         
         try:
             response = UserService.update_user(data, user_id)
-            serializer = UsersListSerializer(response)
+            serializer = UserSerializer.UserListSeriaizer(response)
             
-            return Response({'message': 'El usuario fue actualizado con éxito', 'data': serializer.data}, status=status.HTTP_200_OK)
+            return Response({
+                'message': 'El usuario fue actualizado con éxito',
+                'data': serializer.data
+            }, status=status.HTTP_200_OK)
         except Exception as e:
-            print("Error: ", e)
+            print("Error:", e)
             return Response(
                 {'message': str(e)},
                 status=status.HTTP_400_BAD_REQUEST
@@ -106,7 +106,7 @@ class DeleteView(APIView):
     permission_classes = [IsAdminUser, IsAuthenticated]
     
     def delete(self, request, *args, **kwargs):
-        user_id = kwargs.get('user_id')
+        user_id = int(kwargs.get('pk'))
         
         if not user_id:
             return Response(
@@ -123,4 +123,3 @@ class DeleteView(APIView):
                 status=status.HTTP_400_BAD_REQUEST
             )
     
-
