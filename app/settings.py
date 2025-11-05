@@ -52,7 +52,11 @@ INSTALLED_APPS = [
     'airplanes_management',
     'user',
     'flights_management',
-    'ticket'
+    'ticket',
+    'passengers_management',
+    'reporting',
+    'reservations',
+    
     
 ]
 
