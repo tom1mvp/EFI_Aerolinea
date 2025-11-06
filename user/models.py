@@ -9,6 +9,11 @@ class User(models.Model):
     name = models.CharField(max_length=120, null=False)
     document = models.CharField(max_length=9, null=False)
     is_active = models.BooleanField(default=False)
+    ROLE_CHOICES = [
+        ('admin', 'Admin'),
+        ('customer', 'Customer'),
+    ]
+    role = models.CharField(max_length=20, choices=ROLE_CHOICES, default='client')
     
     def __str__(self):
         return f'Nombre: {self.name} || Usuario: {self.username} || Mail: {self.mail}'

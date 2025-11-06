@@ -23,7 +23,17 @@ class UserRepository():
     
     # Method POST (create user's)
     @staticmethod
-    def create_user(username, password, mail, birth_day, phone, name, document, is_active=True):
+    def create_user(
+        username, 
+        password, 
+        mail, 
+        birth_day, 
+        phone, 
+        name, 
+        document,
+        role,
+        is_active=True
+        ):
         
         
         new_user = User.objects.create(
@@ -34,6 +44,7 @@ class UserRepository():
             phone=phone, 
             name=name, 
             document=document,
+            role = role,
             is_active=is_active
         )
         
@@ -43,7 +54,17 @@ class UserRepository():
     
     # Method PUT (update user's)
     @staticmethod
-    def update_user(user_id, username, password, mail, birth_day, phone, name, document):
+    def update_user(
+        user_id, 
+        username, 
+        password, 
+        mail, 
+        birth_day, 
+        phone, 
+        name, 
+        document,
+        role
+        ):
        
         user = User.objects.filter(id=user_id).first()
         
@@ -57,6 +78,7 @@ class UserRepository():
         user.birth_day=birth_day
         user.phone = phone
         user.name = name
+        user.role = role
         user.document = document
         
         user.save()

@@ -32,6 +32,61 @@ class ListAirplaneView(APIView):
             status=status.HTTP_200_OK
         )
 
+class AvailableSeatsByFlightView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, *args, **kwargs):
+        flight_id = int(kwargs.get('pk'))
+        
+        try:
+            available_seats = SeatServices.get_available_seats_for_flight(flight_id)
+            
+            if not available_seats:
+                return Response(
+                    {'message': f'No hay asientos disponibles para el vuelo ID: {flight_id}'},
+                    status=status.HTTP_204_NO_CONTENT
+                )
+            
+            serializer = SeatListSerializer(available_seats, many=True)
+            
+            return Response(
+                {'data': serializer.data},
+                status=status.HTTP_200_OK
+            )
+        except Exception as e:
+            return Response(
+                {'message': str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
+
+class SeatAvailabilityCheckView(APIView):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request, *args, **kwargs):
+        flight_id = int(kwargs.get('flight_pk'))
+        seat_id = int(kwargs.get('seat_pk'))
+        
+        try:
+            is_available = SeatServices.is_seat_available_for_flight(seat_id, flight_id)
+            
+            message = 'El asiento está disponible.' if is_available else 'El asiento NO está disponible o no existe para este vuelo.'
+            
+            return Response(
+                {
+                    'message': message,
+                    'flight_id': flight_id,
+                    'seat_id': seat_id,
+                    'is_available': is_available
+                },
+                status=status.HTTP_200_OK
+            )
+        except Exception as e:
+            return Response(
+                {'message': str(e)},
+                status=status.HTTP_400_BAD_REQUEST
+            )
+
 class CreateAirplaneView(APIView):
     permission_classes = [IsAdminUser]
     
@@ -113,7 +168,7 @@ class UpdateSeatView(APIView):
         
         if not data or 'airplane_id' not in data:
             return Response(
-                {'message': 'Faltan elementos esenciales'},
+                {'message': 'Faltan campos esenciales'},
                 status=status.HTTP_400_BAD_REQUEST
             )
         

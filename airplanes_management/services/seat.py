@@ -22,7 +22,15 @@ class SeatServices:
     @staticmethod
     def get_seat_by_type_seat(type_seat):
         return SeatRepository.get_seat_by_type_seat(type_seat)
-   
+    
+    @staticmethod
+    def get_available_seats_for_flight(flight_id):
+        return SeatRepository.verify_availability_by_flight(flight_id)
+
+    @staticmethod
+    def is_seat_available_for_flight(seat_id, flight_id):
+        return SeatRepository.is_seat_available_for_flight(seat_id, flight_id)
+    
     """
     # Method POST (create seat)
     @staticmethod

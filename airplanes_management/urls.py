@@ -6,6 +6,8 @@ from airplanes_management.views import (
     CreateAirplaneView,
     UpdateAirplaneView,
     ListSeatView,
+    AvailableSeatsByFlightView,
+    SeatAvailabilityCheckView,
     UpdateSeatView
 )
 
@@ -33,6 +35,17 @@ urlpatterns = [
         'seat/',
         ListSeatView.as_view(),
         name='list-seats'
+    ),
+    
+    path(
+        'flight/<int:pk>/seat_avaible/',
+        AvailableSeatsByFlightView.as_view(),
+        name='flight-available-seats'
+    ),
+    path (
+      'flight/<int:flight_pk>/seat/<int:seat_pk>/avaible',
+      SeatAvailabilityCheckView.as_view(),
+      name='seat-availability-check'
     ),
     
     path(

@@ -1,5 +1,7 @@
 from airplanes_management.models import Seat, Airplane
 
+from flights_management.models import Flight
+
 
 class SeatRepository:
     # Method GET (all, by id, by status, by type)
@@ -14,6 +16,38 @@ class SeatRepository:
     @staticmethod
     def get_seat_by_status(status):
         return Seat.objects.filter(status=status).first()
+    
+    @staticmethod
+    def verify_availability_by_flight(flight_id):
+        try:
+            flight = Flight.objects.get(id=flight_id)
+            airplane_id = flight.airplane_id
+            
+        except Flight.DoesNotExist:
+            raise ValueError(f"No se encontró un Vuelo con ID: {flight_id}")
+            
+        available_seats = Seat.objects.filter(
+            airplane_id=airplane_id,
+            status='disponible'
+        ).order_by('rows', 'columns')
+        
+        return available_seats
+    
+    @staticmethod
+    def is_seat_available_for_flight(seat_id, flight_id):
+        try:
+            flight = Flight.objects.get(id=flight_id)
+            
+            seat = Seat.objects.filter(
+                id=seat_id,
+                airplane=flight.airplane,
+                status='disponible'
+            ).first()
+            
+            return seat is not None
+            
+        except Flight.DoesNotExist:
+            raise ValueError(f"No se encontró un Vuelo con ID: {flight_id}")
     
     @staticmethod
     def get_seat_by_type_seat(type_seat):
