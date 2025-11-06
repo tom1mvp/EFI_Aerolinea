@@ -113,7 +113,7 @@ class UpdateSeatView(APIView):
         
         if not data or 'airplane_id' not in data:
             return Response(
-                {'message': 'Faltan elementos esenciales'},
+                {'message': 'Faltan campos esenciales'},
                 status=status.HTTP_400_BAD_REQUEST
             )
         

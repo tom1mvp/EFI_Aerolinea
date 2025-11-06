@@ -70,7 +70,8 @@ class UserService:
             birth_day=data['birth_day'], 
             phone=data['phone'], 
             name=data['name'], 
-            document=data['document']
+            document=data['document'],
+            role=data['role']
 		)
         
         
@@ -98,7 +99,8 @@ class UserService:
             birth_day=data['birth_day'], 
             phone=data['phone'], 
             name=data['name'], 
-            document=data['document']
+            document=data['document'],
+            role=data['role']
         )
     
         return user
